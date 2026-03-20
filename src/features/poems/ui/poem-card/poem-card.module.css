@@ -1,0 +1,72 @@
+.poemCard {
+  background-color: #ffffff;
+  padding: 32px 40px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+}
+
+.poemCard:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.poemCard:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.2);
+}
+
+.poemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.poemTitle {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #2c2c2c;
+  margin: 0;
+}
+
+.poemMeta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.poemAuthor {
+  font-size: 16px;
+  font-weight: 600;
+  color: #666666;
+  letter-spacing: -0.3px;
+}
+
+.poemYear {
+  font-size: 16px;
+  font-weight: 400;
+  color: #999999;
+  letter-spacing: -0.3px;
+}
+
+@media (max-width: 768px) {
+  .poemCard {
+    padding: 24px 20px;
+  }
+
+  .poemTitle {
+    font-size: 20px;
+  }
+
+  .poemMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .poemAuthor,
+  .poemYear {
+    font-size: 14px;
+  }
+}

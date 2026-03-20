@@ -1,0 +1,84 @@
+.searchContainer {
+  position: relative;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #999999;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2c2c2c;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.searchInput::placeholder {
+  color: #999999;
+}
+
+.searchInput:focus {
+  border-color: #2c2c2c;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.searchInput:focus + .searchIcon,
+.searchContainer:focus-within .searchIcon {
+  color: #2c2c2c;
+}
+
+.clearButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background: #e0e0e0;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.clearButton.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.clearButton:hover {
+  background: #2c2c2c;
+  color: white;
+}
+
+.clearButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 768px) {
+  .searchContainer {
+    max-width: 100%;
+    width: 100%;
+  }
+}

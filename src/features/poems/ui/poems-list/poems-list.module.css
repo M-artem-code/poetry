@@ -1,0 +1,115 @@
+.poemsListSection {
+  padding: 80px 0;
+  background-color: #F6F1EE;
+  min-height: 100vh;
+}
+
+/* Header Section */
+.headerSection {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.backButton:hover {
+  color: #2c2c2c;
+  transform: translateX(-4px);
+}
+
+.backButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.categoryTitle {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #2c2c2c;
+  margin: 0;
+}
+
+.poemsCount {
+  font-size: 16px;
+  font-weight: 500;
+  color: #999999;
+  margin: 0;
+}
+
+/* No Results */
+.noResults {
+  text-align: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.noResultsIcon {
+  width: 64px;
+  height: 64px;
+  color: #d0d0d0;
+  margin-bottom: 16px;
+}
+
+.noResultsText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #666666;
+  margin: 0 0 8px;
+}
+
+.noResultsHint {
+  font-size: 14px;
+  color: #999999;
+  margin: 0;
+}
+
+/* Poems List */
+.poemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .poemsListSection {
+    padding: 60px 0;
+  }
+
+  .titleRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .categoryTitle {
+    font-size: 28px;
+  }
+}

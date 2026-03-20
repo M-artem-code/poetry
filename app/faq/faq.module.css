@@ -1,0 +1,410 @@
+.page {
+  min-height: 100vh;
+  background: #fafafa;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Декоративные элементы */
+.decorations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decorLeft {
+  position: absolute;
+  left: 40px;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.decorRight {
+  position: absolute;
+  right: 40px;
+  top: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.floatingQuote {
+  font-size: 80px;
+  font-family: Georgia, serif;
+  color: rgba(102, 126, 234, 0.15);
+  line-height: 1;
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.floatingFeather {
+  font-size: 32px;
+  opacity: 0.3;
+  animation: floatSlow 5s ease-in-out infinite reverse;
+}
+
+.floatingBook {
+  font-size: 28px;
+  opacity: 0.25;
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.decorLine {
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(180deg, rgba(102, 126, 234, 0.2) 0%, transparent 100%);
+}
+
+.decorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.decorCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(102, 126, 234, 0.15);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.decorRing {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px dashed rgba(102, 126, 234, 0.15);
+  animation: spin 20s linear infinite;
+}
+
+.decorStar {
+  font-size: 24px;
+  color: rgba(102, 126, 234, 0.25);
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.decorCross {
+  font-size: 28px;
+  font-weight: 200;
+  color: rgba(102, 126, 234, 0.15);
+  animation: rotateSlow 10s linear infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hero */
+.hero {
+  padding: 160px 40px 60px;
+  background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.badge {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  letter-spacing: -1.5px;
+}
+
+.subtitle {
+  font-size: 17px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Categories */
+.categories {
+  padding: 0 40px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.categoriesWrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.categoryButton {
+  padding: 12px 24px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.categoryButton:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.categoryActive {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+}
+
+.categoryActive:hover {
+  border-color: #1a1a1a;
+  color: #fff;
+}
+
+/* FAQ Section */
+.faqSection {
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.faqList {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faqItem {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.faqItem:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.faqQuestion {
+  width: 100%;
+  padding: 24px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.faqQuestionOpen {
+  background: #f8f9ff;
+}
+
+.questionText {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding-right: 16px;
+}
+
+.toggleIcon {
+  width: 32px;
+  height: 32px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #667eea;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.faqQuestionOpen .toggleIcon {
+  background: #667eea;
+  color: #fff;
+}
+
+.faqAnswer {
+  overflow: hidden;
+}
+
+.faqAnswer p {
+  padding: 0 24px 24px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Links Section */
+.linksSection {
+  padding: 60px 40px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.linksTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.linksGrid {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.linkCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.linkCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.linkIcon {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.linkText {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .decorLeft {
+    left: 20px;
+  }
+  
+  .decorRight {
+    right: 20px;
+  }
+  
+  .floatingQuote {
+    font-size: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .decorations {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 120px 24px 40px;
+  }
+  
+  .title {
+    font-size: 32px;
+  }
+  
+  .categories {
+    padding: 0 24px;
+  }
+  
+  .categoryButton {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  
+  .faqSection {
+    padding: 0 24px;
+  }
+  
+  .faqQuestion {
+    padding: 20px;
+  }
+  
+  .questionText {
+    font-size: 15px;
+  }
+  
+  .faqAnswer p {
+    padding: 0 20px 20px;
+    font-size: 14px;
+  }
+  
+  .linksSection {
+    padding: 40px 24px 0;
+  }
+  
+  .linksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

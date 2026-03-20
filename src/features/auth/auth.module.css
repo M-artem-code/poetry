@@ -1,0 +1,298 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.navLink {
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #333;
+}
+
+.navLinkActive {
+  color: #333;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #555;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.authCard {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  letter-spacing: 0.3px;
+}
+
+.input {
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #333;
+  background: #fafafa;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #888;
+  background: #fff;
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.forgotPassword {
+  text-align: right;
+  margin-top: -10px;
+}
+
+.forgotPasswordLink {
+  font-size: 13px;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgotPasswordLink:hover {
+  color: #555;
+}
+
+.submitButton {
+  margin-top: 10px;
+  padding: 16px;
+  background: #6b6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background: #555;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+.dividerText {
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.socialButton {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.socialButton:hover {
+  border-color: #bbb;
+  background: #fafafa;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #888;
+}
+
+.footerLink {
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 5px;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #333;
+}
+
+/* Tags decoration */
+.tagsLeft,
+.tagsRight {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tagsLeft {
+  left: 40px;
+}
+
+.tagsRight {
+  right: 40px;
+  text-align: right;
+}
+
+.tag {
+  font-size: 13px;
+  color: #999;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .nav {
+    gap: 20px;
+  }
+
+  .navLink {
+    font-size: 12px;
+  }
+
+  .logo {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .authCard {
+    padding: 35px 25px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .tagsLeft,
+  .tagsRight {
+    display: none;
+  }
+}
+
+.forgotPassword {
+  text-align: right;
+  font-size: 12px;
+  margin-top: -8px;
+}
+
+.forgotPassword a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.forgotPassword a:hover {
+  color: black
+}

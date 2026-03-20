@@ -1,0 +1,266 @@
+.main {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #F6F1EE 0%, #EDE6E0 100%);
+  padding-bottom: 80px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #8b7355;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.notFound {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.notFound h1 {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+}
+
+.notFound p {
+  color: var(--secondary-color);
+  margin-bottom: 30px;
+}
+
+.backLink {
+  color: #8b7355;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.backLink:hover {
+  color: var(--primary-color);
+}
+
+/* Header */
+.header {
+  padding: 40px 0 60px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 40px;
+  transition: color 0.3s;
+}
+
+.backButton:hover {
+  color: var(--primary-color);
+}
+
+.headerContent {
+  text-align: center;
+}
+
+.label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8b7355;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.description {
+  font-size: 18px;
+  color: var(--secondary-color);
+  max-width: 600px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+
+.count {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(139, 115, 85, 0.1);
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8b7355;
+}
+
+/* Poems Grid */
+.poemsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.poemCard {
+  display: grid;
+  grid-template-columns: 60px 1fr 200px 40px;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 30px;
+  background: white;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.poemCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.poemNumber {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d4c4b5;
+  font-family: Georgia, serif;
+}
+
+.poemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.poemTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.poemAuthor {
+  font-size: 14px;
+  color: #8b7355;
+  margin: 0;
+}
+
+.poemYear {
+  font-size: 13px;
+  color: var(--secondary-color);
+}
+
+.poemPreview {
+  font-size: 14px;
+  color: var(--secondary-color);
+  font-style: italic;
+  line-height: 1.5;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poemArrow {
+  font-size: 24px;
+  color: #d4c4b5;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.poemCard:hover .poemArrow {
+  transform: translateX(5px);
+  color: #8b7355;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+}
+
+.empty p {
+  color: var(--secondary-color);
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 42px;
+  }
+  
+  .poemCard {
+    grid-template-columns: 50px 1fr 40px;
+  }
+  
+  .poemPreview {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 30px 0 40px;
+  }
+  
+  .title {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+  
+  .description {
+    font-size: 16px;
+  }
+  
+  .poemCard {
+    grid-template-columns: 40px 1fr 30px;
+    padding: 20px;
+    gap: 16px;
+  }
+  
+  .poemNumber {
+    font-size: 18px;
+  }
+  
+  .poemTitle {
+    font-size: 17px;
+  }
+  
+  .poemArrow {
+    font-size: 20px;
+  }
+}

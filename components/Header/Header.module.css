@@ -1,0 +1,470 @@
+.header {
+  background-color: var(--white);
+  border-radius: 12px;
+  position: sticky;
+  margin-bottom: 32px;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.headerScrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.headerWrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.headerContent {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 60px;
+  padding: 12px 0;
+}
+
+.navLeft,
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  min-width: 0;
+}
+
+.navLeft {
+  justify-content: flex-start;
+}
+
+.navRight {
+  justify-content: flex-end;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.logo:hover {
+  color: var(--secondary-color);
+}
+
+.navLink {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.navLink:hover {
+  color: var(--primary-color);
+}
+
+.navLinkActive {
+  color: var(--primary-color);
+}
+
+/* Directions Dropdown */
+.directionsContainer {
+  position: relative;
+}
+
+.directionsContainer button.navLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.directionsMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  min-width: 360px;
+  padding: 16px;
+  padding-top: 20px;
+  z-index: 1000;
+  animation: slideDownFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.directionsMenu::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.directionsMenu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  transform: translateX(-50%) rotate(45deg);
+  border-radius: 2px;
+  box-shadow: -2px -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.directionItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.directionItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 68px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+}
+
+.directionItem:hover {
+  background: linear-gradient(135deg, rgba(246, 241, 238, 0.8) 0%, rgba(246, 241, 238, 1) 100%);
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.directionIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(44, 44, 44, 0.06) 0%, rgba(44, 44, 44, 0.12) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.directionItem:hover .directionIcon {
+  background: linear-gradient(135deg, #2c2c2c 0%, #000000 100%);
+  transform: scale(1.08) rotate(5deg);
+  box-shadow: 0 8px 16px rgba(44, 44, 44, 0.25);
+}
+
+.directionContent {
+  flex: 1;
+}
+
+.directionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 2px;
+}
+
+.directionDesc {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.login {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.login:hover {
+  color: var(--primary-color);
+}
+
+/* Profile Styles */
+.profileContainer {
+  position: relative;
+  white-space: nowrap;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.profileButton:hover {
+  background-color: #F6F1EE;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.userName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-color);
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profileMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  padding: 12px;
+  z-index: 1000;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profileMenuHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.avatarLarge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.profileInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileName {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 2px;
+}
+
+.profileEmail {
+  font-size: 13px;
+  color: var(--secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profileMenuDivider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 8px 0;
+}
+
+.profileMenuItem {
+  display: block;
+  padding: 10px 12px;
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.profileMenuItem:hover {
+  background-color: #F6F1EE;
+}
+
+.adminLink {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  color: #667eea;
+  border-radius: 8px;
+  margin: 4px;
+}
+
+.adminLink:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+}
+
+.logoutButton {
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: inherit;
+}
+
+.logoutButton:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .headerContent {
+    gap: 30px;
+  }
+  
+  .navLeft,
+  .navRight {
+    gap: 25px;
+  }
+  
+  .navLink {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .headerContent {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .navLeft,
+  .navRight {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    order: -1;
+  }
+  
+  .directionsMenu {
+    left: 0;
+    transform: none;
+    min-width: 280px;
+  }
+  
+  .directionsMenu::before {
+    left: 20px;
+    transform: rotate(45deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .headerWrapper {
+    padding: 0 20px;
+  }
+  
+  .navLeft,
+  .navRight {
+    gap: 15px;
+  }
+  
+  .navLink {
+    font-size: 10px;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .directionsMenu {
+    min-width: 300px;
+  }
+  
+  .directionItem {
+    padding: 12px;
+  }
+  
+  .directionIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+  
+  .directionTitle {
+    font-size: 14px;
+  }
+  
+  .directionDesc {
+    font-size: 12px;
+  }
+}
+

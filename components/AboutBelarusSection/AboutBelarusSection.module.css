@@ -1,0 +1,220 @@
+.aboutSection {
+  padding: 120px 0;
+  background: linear-gradient(180deg, #fff 0%, #F6F1EE 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contentWrapper.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Левая колонка */
+.textColumn {
+  padding-right: 40px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8b7355;
+  display: inline-block;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.label::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #8b7355;
+}
+
+.title {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.description {
+  font-size: 17px;
+  color: var(--secondary-color);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.quote {
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(139, 115, 85, 0.08);
+  border-radius: 16px;
+  position: relative;
+}
+
+.quoteIcon {
+  font-size: 48px;
+  color: #8b7355;
+  opacity: 0.3;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.quote blockquote {
+  font-size: 18px;
+  font-style: italic;
+  color: var(--primary-color);
+  margin: 0 0 15px 0;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.quote cite {
+  font-size: 14px;
+  color: #8b7355;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* Правая колонка */
+.featuresColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.featureCard {
+  display: flex;
+  gap: 24px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 115, 85, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideIn 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.featureIcon {
+  font-size: 40px;
+  flex-shrink: 0;
+}
+
+.featureContent {
+  flex: 1;
+}
+
+.featureTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.featureDescription {
+  font-size: 15px;
+  color: var(--secondary-color);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Декоративные элементы */
+.decorPattern {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+}
+
+.ornament {
+  width: 8px;
+  height: 8px;
+  background: #8b7355;
+  opacity: 0.3;
+  transform: rotate(45deg);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .contentWrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .textColumn {
+    padding-right: 0;
+  }
+  
+  .title {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 80px 0;
+  }
+  
+  .title {
+    font-size: 32px;
+    letter-spacing: -1px;
+  }
+  
+  .description {
+    font-size: 16px;
+  }
+  
+  .featureCard {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+  
+  .featureIcon {
+    font-size: 36px;
+  }
+  
+  .quote {
+    padding: 24px;
+  }
+  
+  .quote blockquote {
+    font-size: 16px;
+  }
+}
