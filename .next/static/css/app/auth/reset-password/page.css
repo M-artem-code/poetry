@@ -744,8 +744,12 @@
 
 
 .auth_error__O_b75 {
+  margin-left: 10px;
+  margin-bottom: -2px;
+  margin-top: -5px;
   color: red;
   font-size: 12px;
+  
 }
 
 .auth_navLink__NDUeR {

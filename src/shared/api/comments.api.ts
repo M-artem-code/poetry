@@ -1,5 +1,5 @@
-import { apiClient } from './client';
-import type { Comment } from '../types/comment.types';
+import { apiClient } from "./client";
+import type { Comment } from "../types";
 
 export interface CreateCommentDto {
   poemId: number;
@@ -19,7 +19,7 @@ export const commentsApi = {
 
   // Создать комментарий
   create: async (data: CreateCommentDto): Promise<Comment> => {
-    const response = await apiClient.post<Comment>('/comments', data);
+    const response = await apiClient.post<Comment>("/comments", data);
     return response.data;
   },
 

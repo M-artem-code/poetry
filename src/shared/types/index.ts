@@ -4,3 +4,4 @@ export type * from './category.types';
 export type * from './comment.types';
 export type * from './favorite.types';
 export type * from './admin.types';
+export * from './holiday.types'

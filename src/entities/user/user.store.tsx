@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { User } from '@/src/shared/types';
-import React from 'react';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { User } from "@/src/shared/types";
+import React from "react";
 
 interface UserState {
   user: User | null;
@@ -29,12 +29,16 @@ export const useUserStore = create<UserState>()(
         }),
     }),
     {
-      name: 'user-storage',
-    }
-  )
+      name: "user-storage",
+    },
+  ),
 );
 
 // Provider для SSR совместимости
-export const UserStoreProvider = ({ children }: { children: React.ReactNode }) => {
+export const UserStoreProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return <>{children}</>;
 };

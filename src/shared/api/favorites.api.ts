@@ -1,6 +1,5 @@
-import { apiClient } from './client';
-import type { Favorite } from '../types/favorite.types';
-import type { Poem } from '../types/poem.types';
+import { Favorite, Poem } from "../types";
+import { apiClient } from "./client";
 
 export interface FavoriteWithPoem extends Favorite {
   poem: Poem;
@@ -9,7 +8,7 @@ export interface FavoriteWithPoem extends Favorite {
 export const favoritesApi = {
   // Получить все избранные стихи пользователя
   getAll: async (): Promise<FavoriteWithPoem[]> => {
-    const response = await apiClient.get<FavoriteWithPoem[]>('/favorites');
+    const response = await apiClient.get<FavoriteWithPoem[]>("/favorites");
     return response.data;
   },
 
@@ -26,7 +25,9 @@ export const favoritesApi = {
 
   // Проверить, в избранном ли стих
   check: async (poemId: number): Promise<{ isFavorite: boolean }> => {
-    const response = await apiClient.get<{ isFavorite: boolean }>(`/favorites/check/${poemId}`);
+    const response = await apiClient.get<{ isFavorite: boolean }>(
+      `/favorites/check/${poemId}`,
+    );
     return response.data;
   },
 

@@ -1,6 +1,4 @@
-import type { Poem, Author } from './poem.types';
-import type { User, UserRole } from './auth.types';
-import type { Category } from './category.types';
+import type { UserRole } from "./auth.types";
 
 export interface AdminStats {
   poems: number;
