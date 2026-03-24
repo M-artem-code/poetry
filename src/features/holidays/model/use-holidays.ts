@@ -29,7 +29,7 @@ export const useHolidaysBySeason = (
     queryKey: ["holidays", "season", season],
     queryFn: () => holidaysApi.getBySeason(season),
     enabled: !!season && (options?.enabled ?? true),
-    staleTime: 10 * 60 * 1000, // 10 минут
+    staleTime: 10 * 60 * 1000,
   });
 };
 

@@ -11,36 +11,6 @@
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/auth/reset-password/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/auth/reset-password/page.css",
-      "static/chunks/app/auth/reset-password/page.js"
-    ],
-    "/collection/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/collection/[slug]/page.css",
-      "static/chunks/app/collection/[slug]/page.js"
-    ],
-    "/author/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/author/[slug]/page.css",
-      "static/chunks/app/author/[slug]/page.js"
-    ],
-    "/faq/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/faq/page.css",
-      "static/chunks/app/faq/page.js"
-    ],
-    "/about/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/about/page.css",
-      "static/chunks/app/about/page.js"
     ]
   }
 }

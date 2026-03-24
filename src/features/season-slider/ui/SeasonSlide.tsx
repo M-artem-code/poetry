@@ -2,7 +2,6 @@
 
 import { useHolidaysBySeason } from "@/src/features/holidays/model/use-holidays";
 import { seasonConfig, seasonMap } from "../season-slider-data";
-import type { SlideSeason } from "../season-slider-data";
 import type { Slide } from "../model/use-season-slides";
 import Image from "next/image";
 import SeasonCalendar from "../../season-calendar/ui/SeasonCalendar-ul";

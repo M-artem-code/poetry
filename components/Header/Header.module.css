@@ -1,11 +1,11 @@
 .header {
-  background-color: var(--light-bg);
+  /* background-color: var(--light-bg);
   position: sticky;
   margin-bottom: 32px;
   top: 0;
   z-index: 1000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease; */
   
 }
 
