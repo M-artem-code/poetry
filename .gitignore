@@ -34,6 +34,7 @@ public/
 poetry-backend/upload/
 dist
 
+.next
 
 # typescript
 *.tsbuildinfo

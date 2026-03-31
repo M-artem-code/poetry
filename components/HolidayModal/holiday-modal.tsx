@@ -156,10 +156,7 @@ function HeaderButtons({ onClose }: { onClose: () => void }) {
       >
         <X className={styles.closeButtonIcon} />
       </button>
-      <button
-        className={styles.shareButton}
-        aria-label="Падзяліцца"
-      >
+      <button className={styles.shareButton} aria-label="Падзяліцца">
         <Share2 className={styles.shareButtonIcon} />
       </button>
     </>

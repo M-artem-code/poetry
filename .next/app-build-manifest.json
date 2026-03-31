@@ -12,6 +12,12 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/auth/new-verification/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/auth/new-verification/page.css",
+      "static/chunks/app/auth/new-verification/page.js"
+    ],
     "/author/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -28,12 +34,6 @@
       "static/chunks/main-app.js",
       "static/css/app/poem/[id]/layout.css",
       "static/chunks/app/poem/[id]/layout.js"
-    ],
-    "/collection/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/collection/[slug]/page.css",
-      "static/chunks/app/collection/[slug]/page.js"
     ]
   }
 }
