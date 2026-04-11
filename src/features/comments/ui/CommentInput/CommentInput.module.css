@@ -1,0 +1,101 @@
+/* Input Area */
+.inputArea {
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+/* Reply Indicator */
+.replyIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  color: #fbbf24;
+}
+
+.cancelReplyBtn {
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  color: #fbbf24;
+  cursor: pointer;
+}
+
+.cancelReplyBtn:hover {
+  color: #f97316;
+}
+
+.cancelReplyBtn svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Input Wrapper */
+.inputWrapper {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+/* Input */
+.input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 0.625rem 1rem;
+  color: white;
+  font-size: 0.8125rem;
+  resize: none;
+  min-height: 2.5rem;
+  max-height: 5rem;
+  transition: all 0.2s;
+}
+
+.input::placeholder {
+  color: #64748b;
+}
+
+.input:focus {
+  outline: none;
+  border-color: rgba(251, 191, 36, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Send Button */
+.sendBtn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.sendBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.sendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sendBtn svg {
+  width: 1rem;
+  height: 1rem;
+  color: white;
+}

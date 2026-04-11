@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useHolidayModal } from "../../src/features/holidays/model/use-holidays-modal";
-import { Holiday, Poem } from "@/src/shared";
+import { Holiday, Poem, useOptimisticViews } from "@/src/shared";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, Share2, Sparkles, X } from "lucide-react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -21,6 +21,8 @@ import { InfoTab } from "@/src/features/holidays/ui/info-tab";
 import { HeroSection } from "@/src/features/holidays/ui/hero-section";
 import styles from "./HolidayModal.module.css";
 import { useOptimisticLike } from "@/src/shared/hooks/use-optimistic-like";
+import { useOptimisticFavorite } from "@/src/features/favorites";
+import { useCommentsCount } from "@/src/features/comments";
 
 interface HolidayModalProps {
   open: boolean;
@@ -29,34 +31,46 @@ interface HolidayModalProps {
   loading?: boolean;
 }
 
-function PoemCardWithLike({
+function OptimisticPoemCard({
   poem,
   index,
   isExpanded,
-  isSaved,
   onToggleExpand,
-  onToggleSave,
 }: {
   poem: Poem;
   index: number;
   isExpanded: boolean;
-  isSaved: boolean;
   onToggleExpand: () => void;
-  onToggleSave: () => void;
 }) {
   const { isLiked, likeCount, toggleLike } = useOptimisticLike(poem.id);
+  const { isFavorite, toggleFavorite } = useOptimisticFavorite(poem.id);
+  const { data: commentsCount } = useCommentsCount(poem.id);
+  const { addView } = useOptimisticViews(poem.id);
+  const [viewTracked, setViewTracked] = React.useState(false);
+  const [openComments, setOpenComments] = React.useState(false);
+
+  const handleToggleExpand = () => {
+    if (!viewTracked) {
+      addView();
+      setViewTracked(true);
+    }
+    onToggleExpand();
+  };
 
   return (
     <PoemCard
       poem={poem}
+      commentsCount={commentsCount || 0}
       index={index}
       isExpanded={isExpanded}
+      onToggleExpand={handleToggleExpand}
       isLiked={isLiked}
-      isSaved={isSaved}
       totalLikes={likeCount}
-      onToggleExpand={onToggleExpand}
       onToggleLike={toggleLike}
-      onToggleSave={onToggleSave}
+      isFavorite={isFavorite}
+      onToggleFavorite={toggleFavorite}
+      isCommentsOpen={openComments}
+      onToggleComments={() => setOpenComments(!openComments)}
     />
   );
 }
@@ -73,90 +87,88 @@ export function HolidayModal({
     seasonStyle,
     setActiveTab,
     toggleExpandPoem,
-    toggleSave,
-    isPoemSaved,
   } = useHolidayModal(holiday);
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className={styles.dialogContent}
-        style={{ maxWidth: "1200px" }}
-        showCloseButton={false}
-        aria-describedby={undefined}
-      >
-        <VisuallyHidden>
-          <DialogTitle>{holiday?.name ?? "Свята"}</DialogTitle>
-          <DialogDescription>
-            {holiday?.description ?? "Інфармацыя пра свята і звязаныя вершы"}
-          </DialogDescription>
-        </VisuallyHidden>
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent
+          className={styles.dialogContent}
+          style={{ maxWidth: "1200px" }}
+          showCloseButton={false}
+          aria-describedby={undefined}
+        >
+          <VisuallyHidden>
+            <DialogTitle>{holiday?.name ?? "Свята"}</DialogTitle>
+            <DialogDescription>
+              {holiday?.description ?? "Інфармацыя пра свята і звязаныя вершы"}
+            </DialogDescription>
+          </VisuallyHidden>
 
-        {loading ? (
-          <LoadingState />
-        ) : holiday ? (
-          <div className={cn(styles.container, seasonStyle.bg)}>
-            {/* Background Pattern */}
-            <BackgroundPattern />
+          {loading ? (
+            <LoadingState />
+          ) : holiday ? (
+            <div className={cn(styles.container, seasonStyle.bg)}>
+              {/* Background Pattern */}
+              <BackgroundPattern />
 
-            {/* Header Buttons */}
-            <HeaderButtons onClose={() => onOpenChange(false)} />
+              {/* Header Buttons */}
+              <HeaderButtons onClose={() => onOpenChange(false)} />
 
-            {/* Main Content */}
-            <div className={styles.mainContent}>
-              {/* Left - Hero */}
-              <HeroSection holiday={holiday} />
+              {/* Main Content */}
+              <div className={styles.mainContent}>
+                {/* Left - Hero */}
+                <HeroSection holiday={holiday} />
 
-              {/* Right - Content */}
-              <div className={styles.contentRight}>
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="flex-1 flex flex-col"
-                >
-                  <TabsHeader poemsCount={holiday.poems.length} />
-
-                  <TabsContent
-                    value="poems"
-                    className="flex-1 mt-0 data-[state=inactive]:hidden"
+                {/* Right - Content */}
+                <div className={styles.contentRight}>
+                  <Tabs
+                    value={activeTab}
+                    onValueChange={setActiveTab}
+                    className="flex-1 flex flex-col"
                   >
-                    <ScrollArea className={styles.poemsScrollArea}>
-                      <div className={styles.poemsContainer}>
-                        {holiday.poems.length > 0 ? (
-                          holiday.poems.map((poem, index) => (
-                            <PoemCardWithLike
-                              key={poem.id}
-                              poem={poem}
-                              index={index}
-                              isExpanded={expandedPoem === poem.id}
-                              isSaved={isPoemSaved(poem.id)}
-                              onToggleExpand={() => toggleExpandPoem(poem.id)}
-                              onToggleSave={() => toggleSave(poem.id)}
-                            />
-                          ))
-                        ) : (
-                          <EmptyState />
-                        )}
-                      </div>
-                    </ScrollArea>
-                  </TabsContent>
+                    <TabsHeader poemsCount={holiday.poems.length} />
 
-                  <TabsContent
-                    value="info"
-                    className="flex-1 mt-0 data-[state=inactive]:hidden"
-                  >
-                    <InfoTab holiday={holiday} />
-                  </TabsContent>
-                </Tabs>
+                    <TabsContent
+                      value="poems"
+                      className="flex-1 mt-0 data-[state=inactive]:hidden"
+                    >
+                      <ScrollArea className={styles.poemsScrollArea}>
+                        <div className={styles.poemsContainer}>
+                          {holiday.poems.length > 0 ? (
+                            holiday.poems.map((poem, index) => (
+                              <OptimisticPoemCard
+                                key={poem.id}
+                                poem={poem}
+                                index={index}
+                                isExpanded={expandedPoem === poem.id}
+                                onToggleExpand={() => toggleExpandPoem(poem.id)}
+                              />
+                            ))
+                          ) : (
+                            <EmptyState />
+                          )}
+                        </div>
+                      </ScrollArea>
+                    </TabsContent>
+
+                    <TabsContent
+                      value="info"
+                      className="flex-1 mt-0 data-[state=inactive]:hidden"
+                    >
+                      <InfoTab holiday={holiday} />
+                    </TabsContent>
+                  </Tabs>
+                </div>
               </div>
-            </div>
 
-            {/* Bottom Gradient */}
-            <div className={styles.bottomGradient} />
-          </div>
-        ) : null}
-      </DialogContent>
-    </Dialog>
+              {/* Bottom Gradient */}
+              <div className={styles.bottomGradient} />
+            </div>
+          ) : null}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

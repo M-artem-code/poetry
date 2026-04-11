@@ -3,6 +3,7 @@ export interface Comment {
   text: string;
   userId: number;
   poemId: number;
+  parentId?: number | null;
   createdAt: string;
   updatedAt: string;
   user?: {
@@ -11,9 +12,23 @@ export interface Comment {
     email: string;
     avatar: string | null;
   };
+  parent?: {
+    id: number;
+    text: string;
+    userId: number;
+    user?: {
+      id: number;
+      name: string | null;
+      avatar: string | null;
+    };
+  };
 }
 
 export interface CreateCommentDto {
-  poemId: number;
+  text: string;
+  parentId?: number;
+}
+
+export interface UpdateCommentDto {
   text: string;
 }

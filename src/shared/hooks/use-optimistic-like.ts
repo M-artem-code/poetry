@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { LikeData, OptimisticUpdateContext } from "../types/likes.type";
+import { LikeData, OptimisticUpdateContext } from "../types/likes.types";
 import { likesApi } from "../api/likes.api";
 import { queryClient } from "../config/query-client";
 import { toast } from "sonner";
@@ -22,19 +22,17 @@ export const useOptimisticLike = (poemId: number) => {
     queryKey: likeKeys.data(poemId),
     queryFn: async () => {
       if (isAuthenticated) {
-        // авторизован — оба запроса
         const [status, count] = await Promise.all([
           likesApi.getStatus(poemId),
           likesApi.getCount(poemId),
         ]);
         return { liked: status.liked, likesCount: count.likesCount };
       } else {
-        // не авторизован — только count
         const count = await likesApi.getCount(poemId);
         return { liked: false, likesCount: count.likesCount };
       }
     },
-    staleTime: 0,
+    staleTime: 2 * 60 * 1000,
     retry: 1,
     refetchOnWindowFocus: false,
   });

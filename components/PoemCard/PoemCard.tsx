@@ -15,19 +15,23 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Poem } from "@/src/shared";
+import { Poem, useOptimisticViews } from "@/src/shared";
 import styles from "./PoemCard.module.css";
+import { Comments } from "@/src/features/comments";
 
 interface PoemCardProps {
   poem: Poem;
   index: number;
   isExpanded: boolean;
   isLiked: boolean;
-  isSaved: boolean;
+  isFavorite: boolean;
   totalLikes: number;
+  commentsCount: number;
+  isCommentsOpen: boolean;
   onToggleExpand: () => void;
   onToggleLike: () => void;
-  onToggleSave: () => void;
+  onToggleFavorite: () => void;
+  onToggleComments: () => void;
 }
 
 export function PoemCard({
@@ -35,14 +39,16 @@ export function PoemCard({
   index,
   isExpanded,
   isLiked,
-  isSaved,
+  isFavorite,
   totalLikes,
+  commentsCount,
+  isCommentsOpen,
   onToggleExpand,
   onToggleLike,
-  onToggleSave,
+  onToggleFavorite,
+  onToggleComments,
 }: PoemCardProps) {
   const hasLongContent = poem.content.split("\n").length > 6;
-  
 
   return (
     <div className={styles.card}>
@@ -105,17 +111,17 @@ export function PoemCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={onToggleSave}
+              onClick={onToggleFavorite}
               className={cn(
                 styles.actionButton,
                 styles.saveButton,
-                isSaved && styles.saveButtonActive,
+                isFavorite && styles.saveButtonActive,
               )}
             >
               <Bookmark
                 className={cn(
                   styles.actionIcon,
-                  isSaved && styles.actionIconFilled,
+                  isFavorite && styles.actionIconFilled,
                 )}
               />
             </Button>
@@ -126,8 +132,10 @@ export function PoemCard({
         <PoemStats
           views={poem.views}
           likes={totalLikes}
-          comments={poem._count?.comments ?? 0}
+          comments={commentsCount}
           videoUrl={poem.videoUrl}
+          isCommentsOpen={isCommentsOpen}
+          onToggleComments={onToggleComments}
         />
       </div>
 
@@ -139,39 +147,45 @@ export function PoemCard({
         {poem.description && (
           <p className={styles.description}>{poem.description}</p>
         )}
-        <div className={styles.poemContent}>
-          <div className={styles.verticalLine} />
-          <p className={cn(styles.text, !isExpanded && styles.textCollapsed)}>
-            {poem.content}
-          </p>
+        {isCommentsOpen ? (
+          <Comments poemId={poem.id} />
+        ) : (
+          <div className={styles.poemContent}>
+            <div className={styles.verticalLine} />
+            <p className={cn(styles.text, !isExpanded && styles.textCollapsed)}>
+              {poem.content}
+            </p>
 
-          {hasLongContent && (
-            <Button
-              variant="ghost"
-              onClick={onToggleExpand}
-              className={styles.expandButton}
-            >
-              <span className="text-sm font-medium">
-                {isExpanded ? "Згарнуць" : "Чытаць далей"}
-              </span>
-              <ChevronDown
-                className={cn(
-                  styles.expandIcon,
-                  isExpanded && styles.expandIconRotated,
-                )}
-              />
-            </Button>
-          )}
-        </div>
+            {hasLongContent && (
+              <Button
+                variant="ghost"
+                onClick={onToggleExpand}
+                className={styles.expandButton}
+              >
+                <span className="text-sm font-medium">
+                  {isExpanded ? "Згарнуць" : "Чытаць далей"}
+                </span>
+                <ChevronDown
+                  className={cn(
+                    styles.expandIcon,
+                    isExpanded && styles.expandIconRotated,
+                  )}
+                />
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Footer */}
-      <div className={styles.footer}>
-        <Button className={styles.fullPageButton} variant="outline">
-          <ExternalLink className={styles.fullPageIcon} />
-          Адкрыць поўную старонку верша
-        </Button>
-      </div>
+      {!isCommentsOpen && (
+        <div className={styles.footer}>
+          <Button className={styles.fullPageButton} variant="outline">
+            <ExternalLink className={styles.fullPageIcon} />
+            Адкрыць поўную старонку верша
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
@@ -211,11 +225,15 @@ function PoemStats({
   likes,
   comments,
   videoUrl,
+  isCommentsOpen,
+  onToggleComments,
 }: {
   views: number;
   likes: number;
   comments: number;
   videoUrl: string;
+  isCommentsOpen: boolean;
+  onToggleComments: () => void;
 }) {
   return (
     <div className={styles.stats}>
@@ -227,7 +245,15 @@ function PoemStats({
         <Heart className={cn(styles.statIcon, styles.likesIcon)} />
         <span>{likes}</span>
       </div>
-      <div className={styles.statItem}>
+      <div
+        className={cn(
+          styles.statItem,
+          isCommentsOpen && styles.statItemClickable,
+        )}
+        onClick={onToggleComments}
+        role="button"
+        tabIndex={0}
+      >
         <MessageCircle className={cn(styles.statIcon, styles.commentsIcon)} />
         <span>{comments}</span>
       </div>

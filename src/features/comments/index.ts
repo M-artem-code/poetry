@@ -1,6 +1,2 @@
-export {
-  useComments,
-  useCreateComment,
-  useUpdateComment,
-  useDeleteComment,
-} from './model/use-comments';
+export { Comments } from "./ui/Comments/Comments";
+export * from "./model";

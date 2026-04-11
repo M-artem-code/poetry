@@ -254,6 +254,23 @@
   border-radius: 0.5rem;
 }
 
+.statItemClickable {
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.statItemClickable:hover {
+  background-color: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
+.statItemClickable:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.3);
+}
+
 .statIcon {
   width: 1rem;
   height: 1rem;
@@ -346,7 +363,7 @@
 
 .textCollapsed {
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

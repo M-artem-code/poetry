@@ -17,4 +17,8 @@ export const likesApi = {
     const response = await apiClient.get(`/likes/${poemId}/count`);
     return response.data;
   },
+
+  removeLike: async (poemId: number): Promise<void> => {
+    await apiClient.delete(`/likes/poem/${poemId}`);
+  },
 };

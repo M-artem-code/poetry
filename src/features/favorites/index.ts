@@ -1,7 +1,1 @@
-export {
-  useFavorites,
-  useCheckFavorite,
-  useToggleFavorite,
-  useAddFavorite,
-  useRemoveFavorite,
-} from './model/use-favorites';
+export { useOptimisticFavorite } from "./model/use-optimistic-favorite";

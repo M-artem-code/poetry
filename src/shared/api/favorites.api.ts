@@ -1,25 +1,30 @@
+import { Favorite, FavoriteData } from "../types";
 import { apiClient } from "./client";
-import { FavoriteWithPoem } from "../types";
 
 export const favoritesApi = {
-  toggle: async (
+  toggleFavorite: async (poemId: number): Promise<FavoriteData> => {
+    const response = await apiClient.post(`/favorites/poem/${poemId}/toggle`);
+    return response.data;
+  },
+
+  getFavoriteStatus: async (
     poemId: number,
-  ): Promise<{ isFavorite: boolean; count: number }> => {
-    const response = await apiClient.post(`/favorites/poems/${poemId}/toggle`);
+  ): Promise<{ isFavorite: boolean }> => {
+    const response = await apiClient.get(`/favorites/poem/${poemId}/status`);
     return response.data;
   },
 
-  getStatus: async (poemId: number): Promise<{ isFavorite: boolean }> => {
-    const response = await apiClient.get(`/favorites/poems/${poemId}/status`);
-    return response.data;
-  },
-
-  getMyFavorites: async (): Promise<FavoriteWithPoem[]> => {
+  getMyFavorites: async (): Promise<Favorite> => {
     const response = await apiClient.get("/favorites/my");
     return response.data;
   },
 
-  remove: async (poemId: number): Promise<void> => {
-    await apiClient.delete(`/favorites/poems/${poemId}`);
+  removeFavorite: async (poemId: number): Promise<void> => {
+    await apiClient.delete(`/favorites/poem/${poemId}`);
+  },
+
+  getCount: async (poemId: number): Promise<{ favoritesCount: number }> => {
+    const response = await apiClient.get(`/favorites/poem/${poemId}/count`);
+    return response.data;
   },
 };

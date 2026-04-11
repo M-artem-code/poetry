@@ -10,11 +10,11 @@ export const useComments = (poemId: number) => {
   });
 };
 
-export const useCreateComment = () => {
+export const useCreateComment = (poemId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateCommentDto) => commentsApi.create(data),
+    mutationFn: (data: CreateCommentDto) => commentsApi.create(poemId, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["comments", variables.poemId],
