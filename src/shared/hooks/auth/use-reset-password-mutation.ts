@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { toastMessageHandler } from "../utils";
+import { toastMessageHandler } from "../../utils";
 import { toast } from "sonner";
-import { TypeResetPasswordSchema } from "../services/schemas";
-import { passwordRecoveryService } from "../services";
+import { TypeResetPasswordSchema } from "../../services/schemas";
+import { passwordRecoveryService } from "../../services";
 
 export function useResetPasswordMutation() {
   const {

@@ -14,7 +14,7 @@ export const favoritesApi = {
     return response.data;
   },
 
-  getMyFavorites: async (): Promise<Favorite> => {
+  getMyFavorites: async (): Promise<Favorite[]> => {
     const response = await apiClient.get("/favorites/my");
     return response.data;
   },

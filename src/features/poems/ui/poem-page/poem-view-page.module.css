@@ -1,0 +1,14 @@
+.page {
+  min-height: 100vh;
+  background: #0c1222;
+  color: #111828;
+  padding-bottom: 120px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}

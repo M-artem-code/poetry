@@ -15,9 +15,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Poem, useOptimisticViews } from "@/src/shared";
+import { Poem } from "@/src/shared";
 import styles from "./PoemCard.module.css";
 import { Comments } from "@/src/features/comments";
+import Link from "next/link";
 
 interface PoemCardProps {
   poem: Poem;
@@ -180,10 +181,12 @@ export function PoemCard({
       {/* Footer */}
       {!isCommentsOpen && (
         <div className={styles.footer}>
-          <Button className={styles.fullPageButton} variant="outline">
-            <ExternalLink className={styles.fullPageIcon} />
-            Адкрыць поўную старонку верша
-          </Button>
+          <Link href={`/poem/${poem.id}`}>
+            <Button className={styles.fullPageButton} variant="outline">
+              <ExternalLink className={styles.fullPageIcon} />
+              Адкрыць поўную старонку верша
+            </Button>
+          </Link>
         </div>
       )}
     </div>
@@ -249,6 +252,7 @@ function PoemStats({
         className={cn(
           styles.statItem,
           isCommentsOpen && styles.statItemClickable,
+          { [styles.statItemClickable]: true },
         )}
         onClick={onToggleComments}
         role="button"

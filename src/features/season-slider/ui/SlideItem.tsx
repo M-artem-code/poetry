@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import styles from "@/components/SeasonSlider/SeasonSlider.module.css";
-import SeasonCalendar from "../../season-calendar/ui/SeasonCalendar-ul";
 
 interface Slide {
   id: number;

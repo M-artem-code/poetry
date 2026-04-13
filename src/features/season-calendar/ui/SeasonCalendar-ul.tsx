@@ -1,17 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import styles from "@/components/SeasonCalendar/SeasonCalendar.module.css";
 import { useSeasonCalendar } from "../model/use-season-calendar";
 import { Holiday } from "@/src/shared";
 import CalendarHeader from "./CalendarHeader";
 import CalendarDays from "./CalendarDays";
-import { useHolidaysByMonthAndDay } from "../../holidays/model/use-holidays";
-import { seasonMap } from "../../season-slider/season-slider-data";
 import { HolidayModal } from "../../../../components/HolidayModal/holiday-modal";
 
 interface SeasonCalendarProps {
-  season: "spring" | "summer" | "autumn" | "winter";
   holidays: Holiday[];
   months: string[];
   monthNumbers: number[];
@@ -22,7 +18,6 @@ interface SeasonCalendarProps {
 const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
 
 export default function SeasonCalendar({
-  season,
   holidays,
   months,
   monthNumbers,
@@ -34,37 +29,12 @@ export default function SeasonCalendar({
     currentMonthNumber,
     days,
     selectedDay,
+    selectedHoliday,
+    modalOpen,
     handleDayClick,
     handleMonthClick,
+    handleCloseModal,
   } = useSeasonCalendar({ holidays, monthNumbers, year });
-
-  const apiSeason = seasonMap[season];
-
-  const { data, isLoading } = useHolidaysByMonthAndDay(
-    currentMonthNumber,
-    selectedDay,
-    apiSeason,
-  );
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalHoliday, setModalHoliday] = useState<Holiday | null>(null);
-
-  // Открываем модальное окно при выборе дня, если есть праздник
-  useEffect(() => {
-    if (selectedDay && data && data.length > 0) {
-      setModalHoliday(data[0]);
-      setModalOpen(true);
-    } else {
-      setModalOpen(false);
-    }
-  }, [selectedDay, data]);
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-    if (selectedDay) {
-      handleDayClick(selectedDay);
-    }
-  };
 
   return (
     <>
@@ -124,8 +94,8 @@ export default function SeasonCalendar({
       <HolidayModal
         open={modalOpen}
         onOpenChange={handleCloseModal}
-        holiday={modalHoliday as any}
-        loading={isLoading}
+        holiday={selectedHoliday as any}
+        loading={false}
       />
     </>
   );

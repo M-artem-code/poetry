@@ -215,6 +215,17 @@ export const adminApi = {
     return response.data;
   },
 
+  resetAllViews: async (): Promise<{
+    deletedViewsCount: number;
+    resetPoemsCount: number;
+  }> => {
+    const response = await apiClient.delete<{
+      deletedViewsCount: number;
+      resetPoemsCount: number;
+    }>("/admin/views/reset");
+    return response.data;
+  },
+
   // Праздники (заглушки - endpoints будут добавлены позже)
   getHolidays: async (): Promise<AdminHoliday[]> => {
     const response = await apiClient.get<AdminHoliday[]>("/admin/holidays");

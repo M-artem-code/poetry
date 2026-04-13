@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUserStore } from "@/src/entities/user";
 import { adminApi } from "@/src/shared/api";
 import type {
@@ -9,11 +10,8 @@ import type {
   AdminUser,
   CreatePoemDto,
   AdminComment,
-  AdminCommentsResponse,
   AdminLike,
-  AdminLikesResponse,
   AdminView,
-  AdminViewsResponse,
   LikesStatistics,
   ViewsAnalytics,
 } from "@/src/shared/types/admin.types";
@@ -34,6 +32,7 @@ type Tab =
 export default function AdminPage() {
   const router = useRouter();
   const { user, isAuthenticated } = useUserStore();
+  const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<Tab>("dashboard");
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [poems, setPoems] = useState<Poem[]>([]);
@@ -333,6 +332,30 @@ export default function AdminPage() {
       setViewsAnalytics(analytics);
     } catch (err: any) {
       alert("Ошибка загрузки аналитики: " + err.message);
+    }
+  };
+
+  const handleResetAllViews = async () => {
+    if (
+      !confirm(
+        "Вы уверены, что хотите сбросить ВСЕ просмотры? Это действие необратимо.",
+      )
+    )
+      return;
+    try {
+      const result = await adminApi.resetAllViews();
+      await queryClient.invalidateQueries({
+        queryKey: ["poem", "interactions"],
+      });
+      alert(
+        `Сброшено просмотров: ${result.deletedViewsCount}, обновлено стихов: ${result.resetPoemsCount}`,
+      );
+      setViews([]);
+      setViewsTotal(0);
+      setViewsPage(1);
+      setViewsAnalytics(null);
+    } catch (err: any) {
+      alert("Ошибка сброса просмотров: " + err.message);
     }
   };
 
@@ -873,6 +896,13 @@ export default function AdminPage() {
               <button className={styles.statsBtn} onClick={loadViewsAnalytics}>
                 📊 Аналитика
               </button>
+              <button
+                className={styles.deleteBtn}
+                onClick={handleResetAllViews}
+                disabled={viewsLoading}
+              >
+                🗑️ Сбросить все
+              </button>
             </div>
             {views.length === 0 ? (
               <p>Нет просмотров</p>
@@ -883,8 +913,12 @@ export default function AdminPage() {
                     <div className={styles.viewInfo}>
                       <h4>Просмотр #{view.id}</h4>
                       <div className={styles.viewMeta}>
-                        <span>📝 Стих: {view.poem.title}</span>
-                        <span>🔐 Хэш IP: {view.ipHash.substring(0, 8)}...</span>
+                        <span>
+                          📝 Стих: {view.poem?.title ?? `#${view.poemId}`}
+                        </span>
+                        <span>
+                          🔐 Хэш IP: {view.ipHash?.substring(0, 8) ?? "—"}...
+                        </span>
                         <span>
                           📅 {new Date(view.createdAt).toLocaleDateString()}
                         </span>

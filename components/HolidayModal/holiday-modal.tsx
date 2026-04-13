@@ -20,9 +20,9 @@ import { EmptyState } from "@/src/features/holidays/ui/empty-state";
 import { InfoTab } from "@/src/features/holidays/ui/info-tab";
 import { HeroSection } from "@/src/features/holidays/ui/hero-section";
 import styles from "./HolidayModal.module.css";
-import { useOptimisticLike } from "@/src/shared/hooks/use-optimistic-like";
-import { useOptimisticFavorite } from "@/src/features/favorites";
-import { useCommentsCount } from "@/src/features/comments";
+import { useOptimisticLike } from "@/src/shared/hooks/interactions";
+import { useOptimisticFavorite } from "@/src/shared/hooks/interactions";
+import { usePoemInteractions } from "@/src/shared/hooks/interactions";
 
 interface HolidayModalProps {
   open: boolean;
@@ -44,7 +44,7 @@ function OptimisticPoemCard({
 }) {
   const { isLiked, likeCount, toggleLike } = useOptimisticLike(poem.id);
   const { isFavorite, toggleFavorite } = useOptimisticFavorite(poem.id);
-  const { data: commentsCount } = useCommentsCount(poem.id);
+  const { commentsCount } = usePoemInteractions(poem.id);
   const { addView } = useOptimisticViews(poem.id);
   const [viewTracked, setViewTracked] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
@@ -60,7 +60,7 @@ function OptimisticPoemCard({
   return (
     <PoemCard
       poem={poem}
-      commentsCount={commentsCount || 0}
+      commentsCount={commentsCount}
       index={index}
       isExpanded={isExpanded}
       onToggleExpand={handleToggleExpand}

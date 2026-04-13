@@ -32,6 +32,8 @@ interface CommentsListProps {
   listRef?: React.Ref<HTMLDivElement>;
   autoOpenParentId?: number | null;
   setAutoOpenParentId?: (id: number | null) => void;
+  scrollToCommentId?: number | null;
+  setScrollToCommentId?: (id: number | null) => void;
 }
 
 export function CommentsList({
@@ -43,6 +45,8 @@ export function CommentsList({
   listRef,
   autoOpenParentId,
   setAutoOpenParentId,
+  scrollToCommentId,
+  setScrollToCommentId,
 }: CommentsListProps) {
   // Состояние для открытых комментариев
   const [expandedComments, setExpandedComments] = useState<Set<number>>(
@@ -62,6 +66,17 @@ export function CommentsList({
       setAutoOpenParentId?.(null);
     }
   }, [autoOpenParentId, setAutoOpenParentId]);
+
+  // Скролл до отправленного коммента
+  useEffect(() => {
+    if (!scrollToCommentId) return;
+
+    const el = document.getElementById(`comment-${scrollToCommentId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      setScrollToCommentId?.(null);
+    }
+  }, [scrollToCommentId, comments, setScrollToCommentId]);
 
   // Переключение ответов для комментария
   const toggleReplies = useCallback((commentId: number) => {

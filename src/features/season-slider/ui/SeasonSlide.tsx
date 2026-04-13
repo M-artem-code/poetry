@@ -47,7 +47,6 @@ export const SeasonSlide = ({ slide, isActive }: SeasonSlideProps) => {
                   months={config.months}
                   monthNumbers={config.monthNumbers}
                   year={config.year}
-                  season={slide.season}
                   accentColor={config.color}
                 />
               )}

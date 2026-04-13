@@ -18,6 +18,6 @@ export interface PostWithLikes {
   likes: LikeData;
 }
 
-export interface OptimisticUpdateContext {
-  previousData: LikeData | undefined;
+export interface OptimisticLikeUpdateContext {
+  previousData: import("./interactions.types").PoemInteractionsData | undefined;
 }

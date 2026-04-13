@@ -11,7 +11,9 @@ export const useDeleteComment = (poemId: number) => {
     mutationFn: (id: number) => commentsApi.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", poemId] });
-      queryClient.invalidateQueries({ queryKey: ["poem", poemId] });
+      queryClient.invalidateQueries({
+        queryKey: ["poem", "interactions", poemId],
+      });
     },
   });
 };

@@ -17,6 +17,7 @@ export const useSeasonCalendar = ({
   const [activeMonthIndex, setActiveMonthIndex] = useState(0);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedHoliday, setSelectedHoliday] = useState<Holiday | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const currentMonthNumber = monthNumbers[activeMonthIndex];
 
@@ -44,13 +45,17 @@ export const useSeasonCalendar = ({
   const handleDayClick = useCallback(
     (day: number | null) => {
       if (!day) return;
+      const holiday = getHolidayForDay(day);
+      if (!holiday) return;
 
       if (selectedDay === day) {
         setSelectedDay(null);
         setSelectedHoliday(null);
+        setModalOpen(false);
       } else {
         setSelectedDay(day);
         setSelectedHoliday(getHolidayForDay(day) || null);
+        setModalOpen(true);
       }
     },
     [selectedDay, getHolidayForDay],
@@ -62,13 +67,21 @@ export const useSeasonCalendar = ({
     setSelectedHoliday(null);
   }, []);
 
+  const handleCloseModal = useCallback(() => {
+    setModalOpen(false);
+    setSelectedDay(null);
+    setSelectedHoliday(null);
+  }, []);
+
   return {
     activeMonthIndex,
     currentMonthNumber,
     days,
     selectedDay,
     selectedHoliday,
+    modalOpen,
     handleDayClick,
     handleMonthClick,
+    handleCloseModal,
   };
 };

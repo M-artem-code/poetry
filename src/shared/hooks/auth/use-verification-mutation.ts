@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { verificationService } from "../services";
+import { verificationService } from "../../services";
 import { toast } from "sonner";
 import { useUserStore } from "@/src/entities/user";
 

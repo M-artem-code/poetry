@@ -24,7 +24,7 @@ export function CommentCard({
   const hasReplies = replies.length > 0;
 
   return (
-    <div className={styles.commentWrapper}>
+    <div id={`comment-${comment.id}`} className={styles.commentWrapper}>
       <div className={styles.card}>
         <div className={styles.header}>
           {comment.user?.avatar ? (

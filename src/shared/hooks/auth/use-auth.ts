@@ -1,8 +1,8 @@
 import { useUserStore } from "@/src/entities/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authApi } from "../api";
-import { LoginDto, RegisterDto } from "../types";
-import { toastMessageHandler } from "../utils";
+import { authApi } from "../../api";
+import { LoginDto, RegisterDto } from "../../types";
+import { toastMessageHandler } from "../../utils";
 import { toast } from "sonner";
 
 export const useAuth = () => {

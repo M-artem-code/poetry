@@ -17,26 +17,30 @@ export function Comments({ poemId, className }: CommentsProps) {
 
   const { mutate: createComment, isPending } = useCreateComment();
 
+  const listRef = useRef<HTMLDivElement>(null);
+
   const { replyingTo, handleReply, cancelReply, textareaRef, areaRef } =
-    useReplyTo();
+    useReplyTo(listRef);
 
   const [autoOpenParentId, setAutoOpenParentId] = useState<number | null>(null);
-
-  const listRef = useRef<HTMLDivElement>(null);
+  const [scrollToCommentId, setScrollToCommentId] = useState<number | null>(
+    null,
+  );
 
   // Создание комментария
   const handleCreateComment = useCallback(
     (data: { poemId: number; text: string; parentId?: number }) => {
       createComment(data, {
-        onSuccess: () => {
+        onSuccess: (newComment) => {
           cancelReply();
           if (data.parentId) {
             setAutoOpenParentId(data.parentId);
           }
+          setScrollToCommentId(newComment.id);
         },
       });
     },
-    [createComment, cancelReply, setAutoOpenParentId],
+    [createComment, cancelReply],
   );
 
   return (
@@ -51,6 +55,8 @@ export function Comments({ poemId, className }: CommentsProps) {
         listRef={listRef}
         autoOpenParentId={autoOpenParentId}
         setAutoOpenParentId={setAutoOpenParentId}
+        scrollToCommentId={scrollToCommentId}
+        setScrollToCommentId={setScrollToCommentId}
       />
 
       {/* Input Area */}

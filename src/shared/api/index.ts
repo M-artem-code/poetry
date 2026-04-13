@@ -7,3 +7,4 @@ export { commentsApi } from "./comments.api";
 export { favoritesApi } from "./favorites.api";
 export { adminApi } from "./admin.api";
 export { holidaysApi } from "./holidays.api";
+export { interactionsApi } from "./interactions.api";

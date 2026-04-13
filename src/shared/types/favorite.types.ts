@@ -40,7 +40,7 @@ export interface GetFavoritesParams {
 }
 
 export interface FavoriteOptimisticContext {
-  previousData?: FavoriteStatus;
+  previousData?: import("./interactions.types").PoemInteractionsData;
   poemId: number;
   action: "add" | "remove";
 }

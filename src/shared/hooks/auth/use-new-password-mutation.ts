@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { toastMessageHandler } from "../utils";
+import { toastMessageHandler } from "../../utils";
 import { toast } from "sonner";
-import { TypeNewPasswordSchema } from "../services/schemas";
-import { passwordRecoveryService } from "../services";
+import { TypeNewPasswordSchema } from "../../services/schemas";
+import { passwordRecoveryService } from "../../services";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export function useNewPasswordMutation() {
