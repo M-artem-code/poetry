@@ -8,3 +8,4 @@ export { favoritesApi } from "./favorites.api";
 export { adminApi } from "./admin.api";
 export { holidaysApi } from "./holidays.api";
 export { interactionsApi } from "./interactions.api";
+export { quizApi } from "./quiz.api";

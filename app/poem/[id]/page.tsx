@@ -1,11 +1,16 @@
-"use client";
-
-import { PoemViewPage } from "@/src/features/poems/ui/poem-page/poem-view-page";
+import PoemViewSection from '@/components/PoemViewSection/PoemViewSection'
 
 interface PageProps {
-  params: { id: string };
+  params: {
+    id: string
+  }
 }
 
 export default function PoemPage({ params }: PageProps) {
-  return <PoemViewPage poemId={Number(params.id)} />;
+  return (
+    <div>
+      <PoemViewSection poemId={params.id} />
+    </div>
+  )
 }
+
