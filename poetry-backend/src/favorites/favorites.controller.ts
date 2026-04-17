@@ -1,47 +1,65 @@
 import {
   Controller,
-  Get,
   Post,
   Delete,
+  Get,
   Param,
   UseGuards,
   Req,
   ParseIntPipe,
-} from '@nestjs/common';
-import { FavoritesService } from './favorites.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+} from "@nestjs/common";
+import { FavoritesService } from "./favorites.service";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import {
+  FavoriteResponseDto,
+  ToggleFavoriteResponseDto,
+} from "./dto/favorite-response.dto";
 
-@Controller('favorites')
-@UseGuards(JwtAuthGuard)
+@Controller("favorites")
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
-  @Post(':poemId')
-  async addToFavorites(
-    @Param('poemId', ParseIntPipe) poemId: number,
+  @UseGuards(JwtAuthGuard)
+  @Post("poem/:poemId/toggle")
+  async toggleFavorite(
+    @Param("poemId", ParseIntPipe) poemId: number,
     @Req() req: any,
-  ) {
-    return this.favoritesService.addToFavorites(req.user.id, poemId);
+  ): Promise<ToggleFavoriteResponseDto> {
+    const userId = req.user.id;
+    return this.favoritesService.toggleFavorite(userId, poemId);
   }
 
-  @Delete(':poemId')
-  async removeFromFavorites(
-    @Param('poemId', ParseIntPipe) poemId: number,
+  @UseGuards(JwtAuthGuard)
+  @Get("poem/:poemId/status")
+  async getFavoriteStatus(
+    @Param("poemId", ParseIntPipe) poemId: number,
     @Req() req: any,
-  ) {
-    return this.favoritesService.removeFromFavorites(req.user.id, poemId);
+  ): Promise<{ isFavorite: boolean; favoritesCount: number }> {
+    const userId = req.user.id;
+    return this.favoritesService.favoriteStatus(userId, poemId);
   }
 
-  @Get()
-  async getUserFavorites(@Req() req: any) {
-    return this.favoritesService.getUserFavorites(req.user.id);
+  @UseGuards(JwtAuthGuard)
+  @Get("my")
+  async getMyFavorites(@Req() req: any): Promise<FavoriteResponseDto[]> {
+    const userId = req.user.id;
+    return this.favoritesService.getUserFavorites(userId);
   }
 
-  @Get('check/:poemId')
-  async checkFavorite(
-    @Param('poemId', ParseIntPipe) poemId: number,
+  @Get("poem/:poemId/count")
+  async getFavoritesCount(
+    @Param("poemId", ParseIntPipe) poemId: number,
+  ): Promise<{ favoritesCount: number }> {
+    return this.favoritesService.getFavoritesCount(poemId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete("poem/:poemId")
+  async removeFavorite(
+    @Param("poemId", ParseIntPipe) poemId: number,
     @Req() req: any,
-  ) {
-    return this.favoritesService.checkFavorite(req.user.id, poemId);
+  ): Promise<void> {
+    const userId = req.user.id;
+    return this.favoritesService.removeFavorite(userId, poemId);
   }
 }

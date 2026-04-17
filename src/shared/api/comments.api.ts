@@ -1,14 +1,5 @@
-import { apiClient } from './client';
-import type { Comment } from '../types/comment.types';
-
-export interface CreateCommentDto {
-  poemId: number;
-  text: string;
-}
-
-export interface UpdateCommentDto {
-  text: string;
-}
+import { apiClient } from "./client";
+import type { Comment, CreateCommentDto, UpdateCommentDto } from "../types";
 
 export const commentsApi = {
   // Получить комментарии к стиху
@@ -18,8 +9,11 @@ export const commentsApi = {
   },
 
   // Создать комментарий
-  create: async (data: CreateCommentDto): Promise<Comment> => {
-    const response = await apiClient.post<Comment>('/comments', data);
+  create: async (poemId: number, data: CreateCommentDto): Promise<Comment> => {
+    const response = await apiClient.post<Comment>(
+      `/comments/poem/${poemId}`,
+      data,
+    );
     return response.data;
   },
 
@@ -33,4 +27,13 @@ export const commentsApi = {
   delete: async (id: number): Promise<void> => {
     await apiClient.delete(`/comments/${id}`);
   },
+
+  // Получить количество комментариев к стиху
+  getCount: async (poemId: number): Promise<number> => {
+    const response = await apiClient.get<{ count: number }>(
+      `/comments/poem/${poemId}/count`,
+    );
+    return response.data.count; // ← достаём число из объекта
+  },
+
 };

@@ -117,14 +117,11 @@
 }
 
 .heroImage {
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   transition: transform 0.5s ease;
 }
 
-.imageContainer:hover .heroImage {
-  transform: scale(1.02);
-}
 
 /* Декоративные элементы */
 .imageDecor1 {

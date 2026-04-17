@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import type { Collection } from '@/src/shared/types';
-import { usePoemsFilter } from '../../model/use-poems-filter';
-import { getPoemsWord } from '../../model/helpers';
-import { PoemsSearch } from '../poems-search/poems-search';
-import { PoemCard } from '../poem-card/poem-card';
-import styles from './poems-list.module.css';
+import { useRouter } from "next/navigation";
+import type { Collection } from "@/src/shared/types";
+import { usePoemsFilter } from "../../model/use-poems-filter";
+import { getPoemsWord } from "../../model/helpers";
+import { PoemsSearch } from "../poems-search/poems-search";
+import { PoemCard } from "../poem-card/poem-card";
+import styles from "./poems-list.module.css";
 
 interface PoemsListProps {
   collection: Collection;
@@ -15,7 +15,7 @@ interface PoemsListProps {
 export const PoemsList = ({ collection }: PoemsListProps) => {
   const router = useRouter();
   const poems = collection.poems || [];
-  
+
   const {
     searchQuery,
     setSearchQuery,
@@ -29,7 +29,7 @@ export const PoemsList = ({ collection }: PoemsListProps) => {
   };
 
   const handleBack = () => {
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -38,7 +38,12 @@ export const PoemsList = ({ collection }: PoemsListProps) => {
         {/* Header Section */}
         <div className={styles.headerSection}>
           <button className={styles.backButton} onClick={handleBack}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Назад
@@ -64,7 +69,13 @@ export const PoemsList = ({ collection }: PoemsListProps) => {
         {/* Poems List */}
         {filteredPoems.length === 0 ? (
           <div className={styles.noResults}>
-            <svg className={styles.noResultsIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg
+              className={styles.noResultsIcon}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
               <path d="M8 8l6 6M14 8l-6 6" />
@@ -77,11 +88,7 @@ export const PoemsList = ({ collection }: PoemsListProps) => {
         ) : (
           <div className={styles.poemsList}>
             {filteredPoems.map((poem) => (
-              <PoemCard
-                key={poem.id}
-                poem={poem}
-                onClick={handlePoemClick}
-              />
+              <PoemCard key={poem.id} poem={poem} onClick={handlePoemClick} />
             ))}
           </div>
         )}

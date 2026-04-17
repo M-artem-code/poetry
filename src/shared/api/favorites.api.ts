@@ -1,41 +1,30 @@
-import { apiClient } from './client';
-import type { Favorite } from '../types/favorite.types';
-import type { Poem } from '../types/poem.types';
-
-export interface FavoriteWithPoem extends Favorite {
-  poem: Poem;
-}
+import { Favorite, FavoriteData } from "../types";
+import { apiClient } from "./client";
 
 export const favoritesApi = {
-  // Получить все избранные стихи пользователя
-  getAll: async (): Promise<FavoriteWithPoem[]> => {
-    const response = await apiClient.get<FavoriteWithPoem[]>('/favorites');
+  toggleFavorite: async (poemId: number): Promise<FavoriteData> => {
+    const response = await apiClient.post(`/favorites/poem/${poemId}/toggle`);
     return response.data;
   },
 
-  // Добавить в избранное
-  add: async (poemId: number): Promise<Favorite> => {
-    const response = await apiClient.post<Favorite>(`/favorites/${poemId}`);
+  getFavoriteStatus: async (
+    poemId: number,
+  ): Promise<{ isFavorite: boolean }> => {
+    const response = await apiClient.get(`/favorites/poem/${poemId}/status`);
     return response.data;
   },
 
-  // Удалить из избранного
-  remove: async (poemId: number): Promise<void> => {
-    await apiClient.delete(`/favorites/${poemId}`);
-  },
-
-  // Проверить, в избранном ли стих
-  check: async (poemId: number): Promise<{ isFavorite: boolean }> => {
-    const response = await apiClient.get<{ isFavorite: boolean }>(`/favorites/check/${poemId}`);
+  getMyFavorites: async (): Promise<Favorite[]> => {
+    const response = await apiClient.get("/favorites/my");
     return response.data;
   },
 
-  // Toggle избранное
-  toggle: async (poemId: number, isFavorite: boolean): Promise<void> => {
-    if (isFavorite) {
-      await favoritesApi.remove(poemId);
-    } else {
-      await favoritesApi.add(poemId);
-    }
+  removeFavorite: async (poemId: number): Promise<void> => {
+    await apiClient.delete(`/favorites/poem/${poemId}`);
+  },
+
+  getCount: async (poemId: number): Promise<{ favoritesCount: number }> => {
+    const response = await apiClient.get(`/favorites/poem/${poemId}/count`);
+    return response.data;
   },
 };

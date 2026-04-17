@@ -1,5 +1,5 @@
-import type { Category } from './category.types';
-import type { Comment } from './comment.types';
+import type { Category } from "./category.types";
+import type { Comment } from "./comment.types";
 
 export interface Author {
   id: number;
@@ -22,22 +22,27 @@ export interface Poem {
   slug: string;
   content: string;
   description: string | null;
+
   authorId: number;
-  author?: Author;
+  author: Author;
+
   year: number | null;
-  videoUrl: string | null;
+  videoUrl: string;
   views: number;
   likes: number;
-  categoryId: number;
-  createdAt: string;
-  updatedAt: string;
-  category?: Category;
+
+  categories: Category[];
+
   comments?: Comment[];
   isFavorited?: boolean;
+
   _count?: {
     comments: number;
     favorites: number;
   };
+
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface PoemsResponse {

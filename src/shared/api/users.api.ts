@@ -1,5 +1,5 @@
-import { apiClient } from './client';
-import type { User } from '../types/auth.types';
+import { User } from "../types";
+import { apiClient } from "./client";
 
 export interface UpdateProfileDto {
   name?: string;
@@ -27,7 +27,7 @@ export interface UserProfile extends User {
 export const usersApi = {
   // Получить текущего пользователя
   getMe: async (): Promise<UserProfile> => {
-    const response = await apiClient.get<UserProfile>('/users/me');
+    const response = await apiClient.get<UserProfile>("/users/me");
     return response.data;
   },
 
@@ -39,19 +39,24 @@ export const usersApi = {
 
   // Обновить профиль
   updateProfile: async (data: UpdateProfileDto): Promise<User> => {
-    const response = await apiClient.put<User>('/users/profile', data);
+    const response = await apiClient.put<User>("/users/profile", data);
     return response.data;
   },
 
   // Обновить email
   updateEmail: async (data: UpdateEmailDto): Promise<User> => {
-    const response = await apiClient.put<User>('/users/email', data);
+    const response = await apiClient.put<User>("/users/email", data);
     return response.data;
   },
 
   // Обновить пароль
-  updatePassword: async (data: UpdatePasswordDto): Promise<{ message: string }> => {
-    const response = await apiClient.put<{ message: string }>('/users/password', data);
+  updatePassword: async (
+    data: UpdatePasswordDto,
+  ): Promise<{ message: string }> => {
+    const response = await apiClient.put<{ message: string }>(
+      "/users/password",
+      data,
+    );
     return response.data;
   },
 };

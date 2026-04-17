@@ -19,6 +19,13 @@ enum TokenType {
   PASSWORD_RESET
 }
 
+enum Season {
+  WINTER
+  SPRING
+  SUMMER
+  AUTUMN
+}
+
 // Пользователь
 model User {
   id       Int     @id @default(autoincrement())
@@ -36,13 +43,19 @@ model User {
 
   comments  Comment[]
   favorites Favorite[]
+  likes     Like[]
+  tokens    Token[]
 }
 
 model Token {
-  id String @id @default(uuid())
+  id    String @id @default(uuid())
+  email String
 
-  email     String
-  token     String    @unique
+  token String @unique
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
   type      TokenType
   expiresIn DateTime
 }
@@ -70,61 +83,149 @@ model Category {
   image       String?
   createdAt   DateTime @default(now())
 
-  poems Poem[]
+  poems Poem[] @relation("PoemCategories")
 }
 
 // Стихотворение
 model Poem {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
-  slug        String   @unique
-  content     String   @db.Text
-  description String?  @db.Text // Описание/анализ стихотворения
+  slug        String  @unique
+  content     String  @db.Text
+  description String? @db.Text
   authorId    Int
   year        Int?
-  videoUrl    String? // Путь к видеофайлу для фона
-  categoryId  Int
-  views       Int      @default(0)
-  likes       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  videoUrl    String?
 
-  author    Author     @relation(fields: [authorId], references: [id])
-  category  Category   @relation(fields: [categoryId], references: [id])
-  comments  Comment[]
+  views          Int @default(0)
+  likesCount     Int @default(0)
+  commentsCount  Int @default(0)
+  favoritesCount Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author     Author     @relation(fields: [authorId], references: [id])
+  categories Category[] @relation("PoemCategories")
+  holidays   Holiday[]  @relation("HolidayPoems")
+
   favorites Favorite[]
+  likes     Like[]
+  comments  Comment[]
 
-  @@index([categoryId])
   @@index([authorId])
+  @@index([likesCount])
+  @@index([favoritesCount])
+  @@index([likesCount, favoritesCount])
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+
+  userId Int
+  poemId Int
+
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  poem      Poem     @relation(fields: [poemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, poemId])
+  @@index([userId, createdAt])
+  @@index([poemId, createdAt])
+  @@index([poemId])
 }
 
 // Комментарий к стихотворению
 model Comment {
-  id        Int      @id @default(autoincrement())
-  text      String   @db.Text
-  userId    Int
-  poemId    Int
+  id   Int    @id @default(autoincrement())
+  text String @db.Text
+
+  userId   Int
+  poemId   Int
+  parentId Int?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   poem Poem @relation(fields: [poemId], references: [id], onDelete: Cascade)
 
-  @@index([poemId])
-  @@index([userId])
+  parent  Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Comment[] @relation("CommentReplies")
+
+  @@index([poemId, createdAt])
+  @@index([userId, createdAt])
 }
 
-// Избранное
 model Favorite {
   id        Int      @id @default(autoincrement())
   userId    Int
   poemId    Int
   createdAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   poem Poem @relation(fields: [poemId], references: [id], onDelete: Cascade)
 
   @@unique([userId, poemId])
+  @@index([userId, createdAt])
+  @@index([poemId, createdAt])
   @@index([userId])
   @@index([poemId])
+}
+
+model View {
+  id     Int  @id @default(autoincrement())
+  poemId Int
+  userId Int?
+
+  ip     String?
+  ipHash String? // хэш IP для уникальности (sha256)
+
+  date DateTime @default(now()) // дата просмотра (без времени, но используем DateTime)
+
+  createdAt DateTime @default(now())
+
+  @@unique([poemId, userId, date])
+  @@unique([poemId, ipHash, date])
+  @@index([poemId])
+}
+
+// Праздник
+model Holiday {
+  id String @id @default(uuid())
+
+  name  String
+  slug  String @unique
+  day   Int
+  month Int
+
+  season      Season // Время года для фильтрации по слайдам
+  image       String? // Картинка праздника (опционально)
+  description String? @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  poems Poem[] @relation("HolidayPoems")
+
+  @@unique([day, month, slug])
+  @@index([month, day])
+}
+
+// Избранное
+
+// Слайды сезонов для главного слайдера
+model SeasonSlide {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String
+  season    Season
+  imageUrl  String
+  altText   String
+  order     Int
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([season, order])
 }

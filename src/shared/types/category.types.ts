@@ -1,4 +1,4 @@
-import type { Collection } from './collection.types';
+import { Collection } from "@/poetry-backend/generated/prisma";
 
 export interface Category {
   id: number;

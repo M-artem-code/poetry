@@ -1,9 +1,11 @@
-import { apiClient } from './client';
-import type { Poem, PoemsResponse } from '../types/poem.types';
+import { Poem, PoemsResponse } from "../types";
+import { apiClient } from "./client";
 
 export const poemsApi = {
   getAll: async (page = 1, limit = 20): Promise<PoemsResponse> => {
-    const response = await apiClient.get<PoemsResponse>(`/poems?page=${page}&limit=${limit}`);
+    const response = await apiClient.get<PoemsResponse>(`/poems`, {
+      params: { page, limit },
+    });
     return response.data;
   },
 
@@ -18,17 +20,23 @@ export const poemsApi = {
   },
 
   getByCollection: async (collectionId: number): Promise<Poem[]> => {
-    const response = await apiClient.get<Poem[]>(`/poems/collection/${collectionId}`);
-    return response.data;
-  },
-
-  search: async (query: string): Promise<Poem[]> => {
-    const response = await apiClient.get<Poem[]>(`/poems/search?q=${query}`);
+    const response = await apiClient.get<Poem[]>(
+      `/poems/collection/${collectionId}`,
+    );
     return response.data;
   },
 
   getByCategorySlug: async (categorySlug: string): Promise<Poem[]> => {
-    const response = await apiClient.get<Poem[]>(`/poems/category/${categorySlug}`);
+    const response = await apiClient.get<Poem[]>(
+      `/poems/category/slug/${categorySlug}`,
+    );
+    return response.data;
+  },
+
+  search: async (query: string): Promise<Poem[]> => {
+    const response = await apiClient.get<Poem[]>(`/poems/search`, {
+      params: { query },
+    });
     return response.data;
   },
 };
