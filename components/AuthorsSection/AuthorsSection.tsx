@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { useQuery } from '@tanstack/react-query'
-import { apiClient } from '@/src/shared/api/client'
-import styles from './AuthorsSection.module.css'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/src/shared/api/client";
+import styles from "./AuthorsSection.module.css";
 
 interface Author {
   id: number;
@@ -18,47 +18,50 @@ interface Author {
 }
 
 const quotes: Record<string, string> = {
-  'yanka-kupala': 'А хто там ідзе, а хто там ідзе у агромністай такой грамадзе?',
-  'yakub-kolas': 'Мой родны кут, як ты мне мілы! Забыць цябе не маю сілы!',
-  'maksim-bahdanovich': 'Зорка Венера ўзышла над зямлёю, светлыя згадкі з сабой прывяла...',
-}
+  "yanka-kupala":
+    "А хто там ідзе, а хто там ідзе у агромністай такой грамадзе?",
+  "yakub-kolas": "Мой родны кут, як ты мне мілы! Забыць цябе не маю сілы!",
+  "maksim-bahdanovich":
+    "Зорка Венера ўзышла над зямлёю, светлыя згадкі з сабой прывяла...",
+};
 
 const titles: Record<string, string> = {
-  'yanka-kupala': 'Народны паэт Беларусі',
-  'yakub-kolas': 'Народны паэт Беларусі',
-  'maksim-bahdanovich': 'Класік беларускай літаратуры',
-}
+  "yanka-kupala": "Народны паэт Беларусі",
+  "yakub-kolas": "Народны паэт Беларусі",
+  "maksim-bahdanovich": "Класік беларускай літаратуры",
+};
 
 const AuthorsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const { data: allAuthors } = useQuery<Author[]>({
-    queryKey: ['authors'],
+    queryKey: ["authors"],
     queryFn: async () => {
-      const response = await apiClient.get('/poems/authors')
-      return response.data
+      const response = await apiClient.get("/poems/authors");
+      return response.data;
     },
-  })
+  });
 
   // Берём только 3 главных автора
-  const authors = allAuthors?.filter(a => 
-    ['yanka-kupala', 'yakub-kolas', 'maksim-bahdanovich'].includes(a.slug)
-  ) || []
+  const authors =
+    allAuthors?.filter((a) =>
+      ["yanka-kupala", "yakub-kolas", "maksim-bahdanovich"].includes(a.slug),
+    ) || [];
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 200)
-    return () => clearTimeout(timer)
-  }, [])
+    const timer = setTimeout(() => setIsVisible(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
-    if (authors.length === 0) return
+    if (authors.length === 0) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % authors.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [authors.length])
+      setActiveIndex((prev) => (prev + 1) % authors.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [authors.length]);
 
   return (
     <section className={styles.authorsSection}>
@@ -67,33 +70,40 @@ const AuthorsSection = () => {
           <span className={styles.sectionLabel}>Вялікія паэты</span>
           <h2 className={styles.sectionTitle}>КЛАСІКІ БЕЛАРУСКАЙ ЛІТАРАТУРЫ</h2>
           <p className={styles.sectionSubtitle}>
-            Пазнаёмцеся з творчасцю найвялікшых беларускіх паэтаў, 
-            якія стварылі сучасную беларускую мову і літаратуру
+            Пазнаёмцеся з творчасцю найвялікшых беларускіх паэтаў, якія стварылі
+            сучасную беларускую мову і літаратуру
           </p>
         </div>
 
-        <div className={`${styles.authorsGrid} ${isVisible ? styles.visible : ''}`}>
+        <div
+          className={`${styles.authorsGrid} ${isVisible ? styles.visible : ""}`}
+        >
           {authors.map((author, index) => {
-            const years = author.birthYear 
-              ? `${author.birthYear}–${author.deathYear || ''}` 
-              : '';
-            const quote = quotes[author.slug] || '';
-            const title = titles[author.slug] || 'Беларускі паэт';
-            
+            const years = author.birthYear
+              ? `${author.birthYear}–${author.deathYear || ""}`
+              : "";
+            const quote = quotes[author.slug] || "";
+            const title = titles[author.slug] || "Беларускі паэт";
+
             return (
-              <Link 
-                href={`/author/${author.slug}`} 
+              <Link
+                href={`/author/${author.slug}`}
                 key={author.slug}
-                className={`${styles.authorCard} ${index === activeIndex ? styles.active : ''}`}
+                className={`${styles.authorCard} ${index === activeIndex ? styles.active : ""}`}
                 onMouseEnter={() => setActiveIndex(index)}
               >
                 <div className={styles.authorImageWrapper}>
                   {author.image && !imageErrors[author.slug] ? (
-                    <img 
-                      src={author.image} 
+                    <img
+                      src={author.image}
                       alt={author.name}
                       className={styles.authorImage}
-                      onError={() => setImageErrors(prev => ({ ...prev, [author.slug]: true }))}
+                      onError={() =>
+                        setImageErrors((prev) => ({
+                          ...prev,
+                          [author.slug]: true,
+                        }))
+                      }
                     />
                   ) : (
                     <div className={styles.authorImagePlaceholder}>
@@ -134,7 +144,7 @@ const AuthorsSection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default AuthorsSection
+export default AuthorsSection;

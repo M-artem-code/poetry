@@ -1,4 +1,13 @@
-// Hooks
-export { useQuizzes } from "./model/use-quizzes";
-export { useQuiz } from "./model/use-quiz";
-export { useCheckAnswers } from "./model/use-check-answers";
+// Data hooks (backend)
+export { useQuiz } from "../../shared/hooks/DragDropQuiz/use-quiz";
+export { useQuizzes } from "../../shared/hooks/DragDropQuiz/use-quizzes";
+export { useCheckAnswers } from "../../shared/hooks/DragDropQuiz/use-check-answers";
+
+// UI Hooks
+export * from "./hooks";
+
+// UI Components
+export * from "./ui";
+
+// Library utilities
+export * from "./lib";

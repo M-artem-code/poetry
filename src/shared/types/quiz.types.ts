@@ -1,46 +1,49 @@
 // ========== Response types ==========
 
-export interface QuizZone {
+export type QuestionType = "MATCH" | "ORDER" | "FILL";
+
+export interface ItemZonePublic {
   id: string;
-  content: string;
-  questionId: string;
+  itemId: string;
+  zoneId: string;
+  order: number | null;
 }
 
-export interface QuizItem {
+export interface QuizItemPublic {
   id: string;
-  content: string;
   questionId: string;
-  correctZoneId: string;
+  content: string;
+  order: number | null;
+  year: number | null;
+  imageUrl: string | null;
+  subtitle: string | null;
+  itemZones: ItemZonePublic[];
 }
 
-export interface QuizItemPublic extends Omit<QuizItem, "correctZoneId"> {}
-
-export interface QuizQuestion {
+export interface QuizZonePublic {
   id: string;
-  text: string;
-  quizId: string;
-  items: QuizItem[];
-  zones: QuizZone[];
+  questionId: string;
+  content: string;
+  order: number | null;
+  itemZones: ItemZonePublic[];
 }
 
 export interface QuizQuestionPublic {
   id: string;
-  text: string;
   quizId: string;
+  text: string;
+  type: QuestionType;
+  content: Record<string, any> | null;
   items: QuizItemPublic[];
-  zones: QuizZone[];
-}
-
-export interface Quiz {
-  id: string;
-  title: string;
-  imageUrl: string;
-  questions: QuizQuestion[];
+  zones: QuizZonePublic[];
 }
 
 export interface QuizPublic {
   id: string;
   title: string;
+  description: string | null;
+  icon: string | null;
+  color: string | null;
   imageUrl: string;
   questions: QuizQuestionPublic[];
 }
@@ -48,51 +51,28 @@ export interface QuizPublic {
 export interface QuizListItem {
   id: string;
   title: string;
+  description: string | null;
+  icon: string | null;
+  color: string | null;
   imageUrl: string;
-}
-
-// ========== Request types ==========
-
-export interface CreateQuizZoneDto {
-  content: string;
-}
-
-export interface CreateQuizItemDto {
-  content: string;
-  correctZoneIndex: number;
-}
-
-export interface CreateQuizQuestionDto {
-  text: string;
-  items: CreateQuizItemDto[];
-  zones: CreateQuizZoneDto[];
-}
-
-export interface CreateQuizDto {
-  title: string;
-  imageUrl: string;
-  questions: CreateQuizQuestionDto[];
-}
-
-export interface UpdateQuizDto {
-  title?: string;
-  imageUrl?: string;
-  questions?: CreateQuizQuestionDto[];
+  questionsCount: number;
 }
 
 // ========== Check answers ==========
 
-export interface AnswerMappingDto {
+export interface AnswerDto {
   questionId: string;
-  mapping: Record<string, string>;
+  itemId: string;
+  zoneId?: string;
+  order?: number;
+  content?: string;
 }
 
 export interface CheckQuizAnswersDto {
-  answers: AnswerMappingDto[];
+  answers: AnswerDto[];
 }
 
 export interface CheckQuizAnswersResponse {
-  isCorrect: boolean;
-  correctCount: number;
   total: number;
+  correct: number;
 }

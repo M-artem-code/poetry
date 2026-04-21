@@ -7,6 +7,11 @@ import {
   useRemoveFavorite,
 } from "@/src/shared/hooks/interactions";
 import { useUserStore } from "@/src/entities/user";
+import {
+  LoadingState,
+  ErrorState,
+  EmptyState,
+} from "@/components/StateScreen/StateScreen";
 import styles from "./favorites.module.css";
 
 export default function FavoritesPage() {
@@ -22,67 +27,33 @@ export default function FavoritesPage() {
   const renderContent = () => {
     if (!isAuthenticated) {
       return (
-        <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>
-            <svg
-              width="80"
-              height="80"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-            </svg>
-          </div>
-          <h2 className={styles.emptyTitle}>Войдите в аккаунт</h2>
-          <p className={styles.emptyText}>
-            Чтобы просматривать избранное, войдите в свой аккаунт
-          </p>
-          <Link href="/" className={styles.browseButton}>
-            На главную
-          </Link>
-        </div>
+        <EmptyState
+          icon="auth"
+          title="Войдите в аккаунт"
+          description="Чтобы просматривать избранное, войдите в свой аккаунт"
+          actionHref="/"
+          actionLabel="На главную"
+        />
       );
     }
 
     if (isLoading) {
-      return <div className={styles.loading}>Загрузка...</div>;
+      return <LoadingState />;
     }
 
     if (error) {
-      return (
-        <div className={styles.emptyState}>
-          <h2 className={styles.emptyTitle}>Ошибка загрузки</h2>
-          <p className={styles.emptyText}>Не удалось загрузить избранное</p>
-        </div>
-      );
+      return <ErrorState description="Не удалось загрузить избранное" />;
     }
 
     if (favorites.length === 0) {
       return (
-        <div className={styles.emptyState}>
-          <div className={styles.emptyIcon}>
-            <svg
-              width="80"
-              height="80"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-            </svg>
-          </div>
-          <h2 className={styles.emptyTitle}>Нет избранных стихов</h2>
-          <p className={styles.emptyText}>
-            Начните добавлять стихотворения в избранное, чтобы они появились
-            здесь
-          </p>
-          <Link href="/" className={styles.browseButton}>
-            Посмотреть стихи
-          </Link>
-        </div>
+        <EmptyState
+          icon="bookmark"
+          title="Нет избранных стихов"
+          description="Начните добавлять стихотворения в избранное, чтобы они появились здесь"
+          actionHref="/"
+          actionLabel="Посмотреть стихи"
+        />
       );
     }
 

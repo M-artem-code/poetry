@@ -1,0 +1,175 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.5rem 0;
+  overflow: hidden;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  align-self: center;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+.instructions span:last-child {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Timeline Section */
+.timelineSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  min-height: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.timelineWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 100px 25px 25px;
+  overflow: visible;
+}
+
+.timeline {
+  position: relative;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--timeline-color, #4ECDC4) 5%,
+    var(--timeline-color, #4ECDC4) 95%,
+    transparent 100%
+  );
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(78, 205, 196, 0.3);
+}
+
+/* Markers */
+.marker {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.markerTick {
+  width: 2px;
+  height: 10px;
+  background: var(--timeline-color, #4ECDC4);
+  opacity: 0.6;
+}
+
+.markerYear {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Hover Indicator */
+.hoverIndicator {
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+  pointer-events: none;
+  margin-bottom: 5px;
+}
+
+.hoverYear {
+  padding: 0.25rem 0.5rem;
+  background: var(--timeline-color, #4ECDC4);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(78, 205, 196, 0.5);
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+.hoverLine {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--timeline-color, #4ECDC4), transparent);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Poets Pool */
+.poetsPool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  min-height: 60px;
+  max-height: 120px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.25rem 0;
+  }
+
+  .timelineSection {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .timelineWrapper {
+    padding: 80px 15px 20px;
+  }
+
+  .poetsPool {
+    gap: 0.4rem;
+    padding: 0.5rem;
+    max-height: 100px;
+  }
+
+  .markerYear {
+    font-size: 0.65rem;
+  }
+}

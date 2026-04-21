@@ -48,13 +48,13 @@ const PoemViewSection = ({ poemId }: PoemViewSectionProps) => {
   const deleteComment = useDeleteComment(poemIdNum);
 
   // Избранное
-  const { isFavorite, toggleFavorite, isMutating } = useOptimisticFavorite(poemIdNum);
+  const { isFavorite, toggleFavorite, isMutating } =
+    useOptimisticFavorite(poemIdNum);
 
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [isVideoMuted, setIsVideoMuted] = useState(true);
   const [newComment, setNewComment] = useState("");
-
 
   const handleBackClick = () => {
     router.back();

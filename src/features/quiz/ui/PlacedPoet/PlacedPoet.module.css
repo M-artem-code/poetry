@@ -1,0 +1,133 @@
+.placed {
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 50;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover .marker {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.connector {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--placed-color, #4ECDC4), transparent);
+}
+
+.marker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.7rem 0.4rem 0.4rem;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+  border: 2px solid var(--placed-color, #4ECDC4);
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  max-width: 160px;
+}
+
+.correct .marker {
+  border-color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+.incorrect .marker {
+  border-color: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--placed-color, #4ECDC4), rgba(78, 205, 196, 0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.correct .avatar {
+  background: linear-gradient(135deg, #10b981, rgba(16, 185, 129, 0.6));
+}
+
+.incorrect .avatar {
+  background: linear-gradient(135deg, #ef4444, rgba(239, 68, 68, 0.6));
+}
+
+.initials {
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.3px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.year {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--placed-color, #4ECDC4);
+  line-height: 1.2;
+}
+
+.correct .year {
+  color: #10b981;
+}
+
+.incorrect .year {
+  color: #ef4444;
+}
+
+.correctYear {
+  font-size: 0.6rem;
+  color: #10b981;
+  white-space: nowrap;
+}
+
+.badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.correct .badge {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.incorrect .badge {
+  background: #ef4444;
+  color: #ffffff;
+}

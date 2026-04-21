@@ -119,6 +119,9 @@ const Header = () => {
                 </div>
               )}
             </div>
+            <Link href="/quizzes" className={styles.navLink}>
+              КВИЗЫ
+            </Link>
             <Link href="/about" className={styles.navLink}>
               О НАС
             </Link>
@@ -129,6 +132,9 @@ const Header = () => {
           </Link>
 
           <nav className={styles.navRight}>
+            <Link href="/filters" className={styles.navLink}>
+              ФИЛЬТРЫ
+            </Link>
             <Link href="/faq" className={styles.navLink}>
               ВОПРОС-ОТВЕТ
             </Link>

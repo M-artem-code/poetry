@@ -7,6 +7,8 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease; */
   background-color: white;
+  position: relative;
+  z-index: 10;
 }
 
 .headerScrolled {
@@ -28,7 +30,7 @@
   padding: 12px 0;
 }
 
-.navLeft,   
+.navLeft,
 .navRight {
   display: flex;
   align-items: center;
@@ -107,7 +109,7 @@
 }
 
 .directionsMenu::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -10px;
   left: 0;
@@ -128,7 +130,7 @@
 }
 
 .directionsMenu::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -6px;
   left: 50%;
@@ -153,17 +155,26 @@
 }
 
 .directionItem:not(:last-child)::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 68px;
   right: 16px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.06), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 0, 0, 0.06),
+    transparent
+  );
 }
 
 .directionItem:hover {
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(96, 165, 250, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(96, 165, 250, 0.1) 0%,
+    rgba(96, 165, 250, 0.2) 100%
+  );
   transform: translateX(4px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -172,7 +183,11 @@
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(96, 165, 250, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(96, 165, 250, 0.1) 0%,
+    rgba(96, 165, 250, 0.2) 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,14 +372,22 @@
 }
 
 .adminLink {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 100%
+  );
   color: #667eea;
   border-radius: 8px;
   margin: 4px;
 }
 
 .adminLink:hover {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.2) 0%,
+    rgba(118, 75, 162, 0.2) 100%
+  );
 }
 
 .logoutButton {
@@ -391,12 +414,12 @@
   .headerContent {
     gap: 30px;
   }
-  
+
   .navLeft,
   .navRight {
     gap: 25px;
   }
-  
+
   .navLink {
     font-size: 11px;
   }
@@ -408,23 +431,23 @@
     gap: 20px;
     text-align: center;
   }
-  
+
   .navLeft,
   .navRight {
     justify-content: center;
     flex-wrap: wrap;
   }
-  
+
   .logo {
     order: -1;
   }
-  
+
   .directionsMenu {
     left: 0;
     transform: none;
     min-width: 280px;
   }
-  
+
   .directionsMenu::before {
     left: 20px;
     transform: rotate(45deg);
@@ -435,40 +458,39 @@
   .headerWrapper {
     padding: 0 20px;
   }
-  
+
   .navLeft,
   .navRight {
     gap: 15px;
   }
-  
+
   .navLink {
     font-size: 10px;
   }
-  
+
   .logo {
     font-size: 18px;
   }
-  
+
   .directionsMenu {
     min-width: 300px;
   }
-  
+
   .directionItem {
     padding: 12px;
   }
-  
+
   .directionIcon {
     width: 44px;
     height: 44px;
     font-size: 22px;
   }
-  
+
   .directionTitle {
     font-size: 14px;
   }
-  
+
   .directionDesc {
     font-size: 12px;
   }
 }
-
