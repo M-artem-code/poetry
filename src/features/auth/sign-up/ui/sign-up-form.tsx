@@ -32,7 +32,7 @@ export const SignUpForm = ({
   const { mutate, isPending } = useSignUp({
     onSuccess: () => {
       setSuccessMessage(
-        "Регистрация успешна! Проверьте email для подтверждения.",
+        "Рэгістрацыя паспяховая! Праверце email для пацверджання.",
       );
       onSuccess?.();
     },
@@ -45,16 +45,20 @@ export const SignUpForm = ({
 
   return (
     <div className={styles.authCard}>
-      <h1 className={styles.title}>РЕГИСТРАЦИЯ</h1>
-      <p className={styles.subtitle}>Создайте новый аккаунт</p>
+      <h1 className={styles.title}>РЭГІСТРАЦЫЯ</h1>
+      <p className={styles.subtitle}>Стварыце новы акаўнт</p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.form}
+        noValidate
+      >
         {/* NAME */}
         <div className={styles.inputGroup}>
-          <label className={styles.label}>ИМЯ</label>
+          <label className={styles.label}>ІМЯ</label>
           <input
             type="text"
-            placeholder="Введите ваше имя"
+            placeholder="Увядзіце ваша імя"
             className={styles.input}
             {...register("name")}
           />
@@ -82,7 +86,7 @@ export const SignUpForm = ({
           <label className={styles.label}>ПАРОЛЬ</label>
           <input
             type="password"
-            placeholder="Минимум 8 символов"
+            placeholder="Мінімум 8 сімвалаў"
             className={styles.input}
             {...register("password")}
           />
@@ -93,10 +97,10 @@ export const SignUpForm = ({
 
         {/* CONFIRM PASSWORD */}
         <div className={styles.inputGroup}>
-          <label className={styles.label}>ПОВТОРИТЕ ПАРОЛЬ</label>
+          <label className={styles.label}>ПАЎТАРЫЦЕ ПАРОЛЬ</label>
           <input
             type="password"
-            placeholder="Повторите пароль"
+            placeholder="Паўтарыце пароль"
             className={styles.input}
             {...register("confirmPassword")}
           />
@@ -120,19 +124,19 @@ export const SignUpForm = ({
             isPending ? styles.submitButtonLoading : ""
           }`}
         >
-          {isPending ? "Регистрация..." : "ЗАРЕГИСТРИРОВАТЬСЯ"}
+          {isPending ? "Рэгістрацыя..." : "ЗАРЭГІСТРАВАЦЦА"}
         </button>
 
         {/* SWITCH */}
         {onSwitchToSignIn && (
           <div className={styles.footer}>
-            Уже есть аккаунт?
+            Ужо ёсць акаўнт?
             <button
               type="button"
               onClick={onSwitchToSignIn}
               className={styles.footerLink}
             >
-              Войти
+              Увайсці
             </button>
           </div>
         )}

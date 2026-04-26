@@ -13,8 +13,9 @@ export const usePoemInteractions = (poemId: number) => {
       queryFn: () => interactionsApi.getInteractions(poemId),
 
       enabled: !!poemId,
-      staleTime: 5 * 60 * 1000,
+      staleTime: 0,
       retry: 1,
+      refetchOnMount: "always",
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
     });

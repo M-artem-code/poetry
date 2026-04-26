@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Send, X, Loader2 } from "lucide-react";
 import type { Comment } from "@/src/shared/types";
 import styles from "./CommentInput.module.css";
-import { text } from "stream/consumers";
 
 interface CommentInputProps {
   poemId: number;

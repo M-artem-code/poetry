@@ -84,7 +84,8 @@ const CardsSlider = () => {
                     alt={category.name}
                     fill
                     className={styles.image}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 200vw, 300vw"
+                    quality={100}
                   />
                   <div className={styles.imageOverlay}></div>
                   <h3 className={styles.cardTitle}>{category.name.toUpperCase()}</h3>

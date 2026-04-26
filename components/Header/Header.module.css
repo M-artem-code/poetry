@@ -71,8 +71,10 @@
   text-transform: uppercase;
 }
 
-.navLink:hover {
-  color: var(--primary-color);
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover {
+    color: var(--primary-color);
+  }
 }
 
 .navLinkActive {
@@ -169,16 +171,6 @@
   );
 }
 
-.directionItem:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(96, 165, 250, 0.1) 0%,
-    rgba(96, 165, 250, 0.2) 100%
-  );
-  transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .directionIcon {
   width: 52px;
   height: 52px;
@@ -197,10 +189,27 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.directionItem:hover .directionIcon {
-  background: linear-gradient(135deg, var(--accent-color) 0%, #3b82f6 100%);
-  transform: scale(1.08) rotate(5deg);
-  box-shadow: 0 8px 16px rgba(96, 165, 250, 0.3);
+
+@media (hover: hover) and (pointer: fine) {
+  .directionItem:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(96, 165, 250, 0.1) 0%,
+      rgba(96, 165, 250, 0.2) 100%
+    );
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .directionItem:hover .directionIcon {
+    background: linear-gradient(
+      135deg,
+      var(--accent-color) 0%,
+      #3b82f6 100%
+    );
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 8px 16px rgba(96, 165, 250, 0.3);
+  }
 }
 
 .directionContent {

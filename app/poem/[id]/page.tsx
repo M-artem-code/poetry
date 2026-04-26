@@ -1,9 +1,9 @@
-import PoemViewSection from '@/components/PoemViewSection/PoemViewSection'
+import PoemViewSection from "@/components/PoemViewSection/PoemViewSection";
 
 interface PageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function PoemPage({ params }: PageProps) {
@@ -11,6 +11,5 @@ export default function PoemPage({ params }: PageProps) {
     <div>
       <PoemViewSection poemId={params.id} />
     </div>
-  )
+  );
 }
-

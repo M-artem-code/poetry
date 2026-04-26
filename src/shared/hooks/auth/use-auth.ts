@@ -14,8 +14,8 @@ export const useAuth = () => {
     onSuccess: (response) => {
       setUser(response.user);
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      toast.success("Вход выполнен", {
-        description: `Добро пожаловать, ${response.user.name || response.user.email}!`,
+      toast.success("Уваход выкананы", {
+        description: `Вітаем, ${response.user.name || response.user.email}!`,
       });
     },
     onError: (error) => {
@@ -27,8 +27,9 @@ export const useAuth = () => {
     mutationFn: (data: RegisterDto) => authApi.register(data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      toast.success("Успешная регистрация", {
-        description: `Подтвердите почту. Сообщение было отправлено на вашу почту.,`,
+      toast.success("Рэгістрацыя паспяховая", {
+        description:
+          "Пацвердзіце пошту. Паведамленне было адпраўлена на вашу пошту.",
       });
     },
     onError: (error) => {

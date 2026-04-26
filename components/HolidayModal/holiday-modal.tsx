@@ -45,7 +45,7 @@ function OptimisticPoemCard({
   const { isLiked, likeCount, toggleLike } = useOptimisticLike(poem.id);
   const { isFavorite, toggleFavorite } = useOptimisticFavorite(poem.id);
   const { commentsCount } = usePoemInteractions(poem.id);
-  const { addView } = useOptimisticViews(poem.id);
+  const { addView, views } = useOptimisticViews(poem.id);
   const [viewTracked, setViewTracked] = React.useState(false);
   const [openComments, setOpenComments] = React.useState(false);
 
@@ -63,6 +63,7 @@ function OptimisticPoemCard({
       commentsCount={commentsCount}
       index={index}
       isExpanded={isExpanded}
+      viewsOverride={views}
       onToggleExpand={handleToggleExpand}
       isLiked={isLiked}
       totalLikes={likeCount}

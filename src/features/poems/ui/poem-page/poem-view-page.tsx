@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePoem } from "../../model/use-poem";
 import { useOptimisticLike } from "@/src/shared/hooks/interactions";
 import { useOptimisticFavorite } from "@/src/shared/hooks/interactions";
@@ -21,10 +21,20 @@ export function PoemViewPage({ poemId }: PoemViewPageProps) {
   const { data: poem, isLoading, error } = usePoem(poemId);
   const { isLiked, likeCount, toggleLike } = useOptimisticLike(poemId);
   const { isFavorite, toggleFavorite } = useOptimisticFavorite(poemId);
-  const { commentsCount } = usePoemInteractions(poemId);
+  const { commentsCount, views } = usePoemInteractions(poemId);
   const { addView } = useOptimisticViews(poemId);
   const [commentsOpen, setCommentsOpen] = useState(false);
   const [viewTracked, setViewTracked] = useState(false);
+
+  useEffect(() => {
+    if (!commentsOpen) return;
+
+    const t = window.setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, 0);
+
+    return () => window.clearTimeout(t);
+  }, [commentsOpen]);
 
   if (isLoading) return <PoemPageSkeleton />;
 
@@ -66,7 +76,7 @@ export function PoemViewPage({ poemId }: PoemViewPageProps) {
 
         <div className="mt-8">
           <InteractionBar
-            views={poem.views}
+            views={views}
             likesCount={likeCount}
             isLiked={isLiked}
             commentsCount={commentsCount}
