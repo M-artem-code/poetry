@@ -33,80 +33,80 @@ export const SignInForm = ({
   };
 
   return (
-      <div className={styles.authCard} >
-        <h1 className={styles.title}>ВХОД</h1>
-        <p className={styles.subtitle}>С возвращением</p>
+    <div className={styles.authCard}>
+      <h1 className={styles.title}>УВАХОД</h1>
+      <p className={styles.subtitle}>З вяртаннем</p>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className={styles.form}
-          noValidate
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.form}
+        noValidate
+      >
+        {/* EMAIL */}
+        <div className={styles.inputGroup}>
+          <label className={styles.label}>EMAIL</label>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            className={styles.input}
+            {...register("email")}
+          />
+          {errors.email && (
+            <span className={styles.error}>{errors.email.message}</span>
+          )}
+        </div>
+
+        {/* PASSWORD */}
+        <div className={styles.inputGroup}>
+          <label className={styles.label}>ПАРОЛЬ</label>
+          <input
+            type="password"
+            placeholder="Увядзіце пароль"
+            className={styles.input}
+            {...register("password")}
+          />
+          {errors.password && (
+            <span className={styles.error}>{errors.password.message}</span>
+          )}
+        </div>
+
+        {/* FORGOT PASSWORD */}
+        <div className={styles.forgotPassword}>
+          <Link href="/auth/reset-password">Забыліся пароль?</Link>
+        </div>
+
+        {/* ERROR */}
+        {error && (
+          <p className={styles.error} style={{ textAlign: "center" }}>
+            Няправільны email або пароль
+          </p>
+        )}
+
+        {/* SUBMIT */}
+        <button
+          type="submit"
+          disabled={isPending}
+          className={`${styles.submitButton} ${
+            isPending ? styles.submitButtonLoading : ""
+          }`}
         >
-          {/* EMAIL */}
-          <div className={styles.inputGroup}>
-            <label className={styles.label}>EMAIL</label>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className={styles.input}
-              {...register("email")}
-            />
-            {errors.email && (
-              <span className={styles.error}>{errors.email.message}</span>
-            )}
+          {isPending ? "Уваход..." : "УВАЙСЦІ"}
+        </button>
+
+        {/* SWITCH */}
+        {onSwitchToSignUp && (
+          <div className={styles.footer}>
+            Няма акаўнта?
+            <button
+              type="button"
+              onClick={onSwitchToSignUp}
+              className={styles.footerLink}
+            >
+              Зарэгістравацца
+            </button>
           </div>
-
-          {/* PASSWORD */}
-          <div className={styles.inputGroup}>
-            <label className={styles.label}>ПАРОЛЬ</label>
-            <input
-              type="password"
-              placeholder="Введите пароль"
-              className={styles.input}
-              {...register("password")}
-            />
-            {errors.password && (
-              <span className={styles.error}>{errors.password.message}</span>
-            )}
-          </div>
-
-          {/* FORGOT PASSWORD */}
-          <div className={styles.forgotPassword}>
-            <Link href="/auth/reset-password">Забыли пароль?</Link>
-          </div>
-
-          {/* ERROR */}
-          {error && (
-            <p className={styles.error} style={{ textAlign: "center" }}>
-              Неверный email или пароль
-            </p>
-          )}
-
-          {/* SUBMIT */}
-          <button
-            type="submit"
-            disabled={isPending}
-            className={`${styles.submitButton} ${
-              isPending ? styles.submitButtonLoading : ""
-            }`}
-          >
-            {isPending ? "Вход..." : "ВОЙТИ"}
-          </button>
-
-          {/* SWITCH */}
-          {onSwitchToSignUp && (
-            <div className={styles.footer}>
-              Нет аккаунта?
-              <button
-                type="button"
-                onClick={onSwitchToSignUp}
-                className={styles.footerLink}
-              >
-                Зарегистрироваться
-              </button>
-            </div>
-          )}
-        </form>
-      </div>
+        )}
+      </form>
+    </div>
   );
 };

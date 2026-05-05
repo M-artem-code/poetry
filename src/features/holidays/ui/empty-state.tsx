@@ -10,15 +10,11 @@ export function EmptyState() {
       <div className={styles.emptyIconWrapper}>
         <BookOpen className={styles.emptyIcon} />
       </div>
-      <p className={styles.emptyTitle}>
-        Вершаў для гэтага свята яшчэ няма
-      </p>
-      <p className={styles.emptySubtitle}>
-        Станьце першым, хто дадасць верш да гэтага свята
-      </p>
-      <Button className={styles.emptyButton}>
+      <p className={styles.emptyTitle}>Вершаў для гэтага свята яшчэ няма</p>
+      <p className={styles.emptySubtitle}>Няма верша</p>
+      <Button className={styles.emptyButton} disabled>
         <Sparkles className={styles.emptyButtonIcon} />
-        Дадаць верш
+        Няма верша
       </Button>
     </div>
   );

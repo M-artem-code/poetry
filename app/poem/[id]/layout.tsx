@@ -1,7 +1,15 @@
+import Header from '@/components/Header/Header'
+
 export default function PoemLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  )
 }
+

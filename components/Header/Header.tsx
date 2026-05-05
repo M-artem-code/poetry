@@ -13,6 +13,7 @@ const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isDirectionsOpen, setIsDirectionsOpen] = useState(false);
+  const [canHover, setCanHover] = useState(false);
 
   const { user, isAuthenticated, logout: logoutStore } = useUserStore();
   const { data: categories } = useCategories();
@@ -27,6 +28,14 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setCanHover(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
   }, []);
 
   // Close menus when clicking outside
@@ -87,10 +96,22 @@ const Header = () => {
             <div
               ref={directionsContainerRef}
               className={styles.directionsContainer}
-              onMouseEnter={() => setIsDirectionsOpen(true)}
-              onMouseLeave={() => setIsDirectionsOpen(false)}
+              onMouseEnter={
+                canHover ? () => setIsDirectionsOpen(true) : undefined
+              }
+              onMouseLeave={
+                canHover ? () => setIsDirectionsOpen(false) : undefined
+              }
             >
-              <button className={styles.navLink}>НАПРАВЛЕНИЯ ▼</button>
+              <button
+                type="button"
+                className={styles.navLink}
+                aria-haspopup="menu"
+                aria-expanded={isDirectionsOpen}
+                onClick={() => setIsDirectionsOpen((prev) => !prev)}
+              >
+                НАПРАВЛЕНИЯ ▼
+              </button>
               {isDirectionsOpen && categories && categories.length > 0 && (
                 <div
                   className={styles.directionsMenu}
@@ -119,6 +140,9 @@ const Header = () => {
                 </div>
               )}
             </div>
+            <Link href="/quizzes" className={styles.navLink}>
+              КВИЗЫ
+            </Link>
             <Link href="/about" className={styles.navLink}>
               О НАС
             </Link>
@@ -129,6 +153,9 @@ const Header = () => {
           </Link>
 
           <nav className={styles.navRight}>
+            <Link href="/filters" className={styles.navLink}>
+              ФИЛЬТРЫ
+            </Link>
             <Link href="/faq" className={styles.navLink}>
               ВОПРОС-ОТВЕТ
             </Link>

@@ -19,6 +19,8 @@ import { Poem } from "@/src/shared";
 import styles from "./PoemCard.module.css";
 import { Comments } from "@/src/features/comments";
 import Link from "next/link";
+import { useUserStore } from "@/src/entities/user";
+import { toast } from "sonner";
 
 interface PoemCardProps {
   poem: Poem;
@@ -29,6 +31,7 @@ interface PoemCardProps {
   totalLikes: number;
   commentsCount: number;
   isCommentsOpen: boolean;
+  viewsOverride?: number;
   onToggleExpand: () => void;
   onToggleLike: () => void;
   onToggleFavorite: () => void;
@@ -44,12 +47,25 @@ export function PoemCard({
   totalLikes,
   commentsCount,
   isCommentsOpen,
+  viewsOverride,
   onToggleExpand,
   onToggleLike,
   onToggleFavorite,
   onToggleComments,
 }: PoemCardProps) {
+  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
   const hasLongContent = poem.content.split("\n").length > 6;
+  const views = viewsOverride ?? poem.views;
+
+  const handleToggleExpand = () => {
+    if (!isAuthenticated) {
+      toast.error("Патрэбна рэгістрацыя", {
+        description: "Каб чытаць далей, трэба зарэгістравацца або ўвайсці",
+      });
+      return;
+    }
+    onToggleExpand();
+  };
 
   return (
     <div className={styles.card}>
@@ -131,7 +147,7 @@ export function PoemCard({
 
         {/* Stats */}
         <PoemStats
-          views={poem.views}
+          views={views}
           likes={totalLikes}
           comments={commentsCount}
           videoUrl={poem.videoUrl}
@@ -160,7 +176,7 @@ export function PoemCard({
             {hasLongContent && (
               <Button
                 variant="ghost"
-                onClick={onToggleExpand}
+                onClick={handleToggleExpand}
                 className={styles.expandButton}
               >
                 <span className="text-sm font-medium">

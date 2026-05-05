@@ -1,0 +1,113 @@
+.zone {
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+}
+
+/* Card variant - for Match quiz */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+  border: 2px dashed rgba(148, 163, 184, 0.3);
+  border-radius: 12px;
+  min-height: 80px;
+}
+
+.card.over {
+  border-color: var(--zone-color, #4ECDC4);
+  border-style: solid;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+  box-shadow: inset 0 0 20px rgba(78, 205, 196, 0.15);
+}
+
+.card.correct {
+  border-color: #10b981;
+  border-style: solid;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.9));
+}
+
+.card.incorrect {
+  border-color: #ef4444;
+  border-style: solid;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(15, 23, 42, 0.9));
+}
+
+/* Inline variant - for Fill blanks */
+.inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  min-height: 36px;
+  padding: 0.25rem 0.75rem;
+  background: rgba(30, 41, 59, 0.5);
+  border: 2px dashed rgba(148, 163, 184, 0.4);
+  border-radius: 6px;
+  margin: 0 0.25rem;
+  vertical-align: middle;
+}
+
+.inline.over {
+  border-color: var(--zone-color, #A78BFA);
+  border-style: solid;
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.inline.correct {
+  border-color: #10b981;
+  border-style: solid;
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.inline.incorrect {
+  border-color: #ef4444;
+  border-style: solid;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Slot variant - minimal */
+.slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 40px;
+}
+
+/* Placeholder text */
+.content:empty::after {
+  content: "Перацягні сюды";
+  color: rgba(148, 163, 184, 0.5);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.inline .content:empty::after {
+  content: "___";
+  color: rgba(148, 163, 184, 0.6);
+  font-size: 1rem;
+}

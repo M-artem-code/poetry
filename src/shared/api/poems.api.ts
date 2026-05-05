@@ -35,7 +35,7 @@ export const poemsApi = {
 
   search: async (query: string): Promise<Poem[]> => {
     const response = await apiClient.get<Poem[]>(`/poems/search`, {
-      params: { query },
+      params: { q: query },
     });
     return response.data;
   },

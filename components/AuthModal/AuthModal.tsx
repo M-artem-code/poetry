@@ -20,9 +20,9 @@ const AuthModal = ({ isOpen, onClose, onLogin }: AuthModalProps) => {
   };
 
   const handleRegisterSuccess = () => {
-    // НЕ закрываем модальное окно
-    // Только показываем toast (уже в use-sign-up.ts)
-    // Можно показать дополнительное сообщение в форме
+    // Не закрываем модальнае акно
+    // Толькі паказваем toast (ужо ў use-sign-up.ts)
+    // Можна паказаць дадатковае паведамленне ў форме
   };
 
   return (

@@ -6,6 +6,7 @@ import { FavoriteOptimisticContext } from "@/src/shared/types/favorite.types";
 import { favoritesApi } from "@/src/shared/api/favorites.api";
 import { interactionKeys, usePoemInteractions } from "./use-poem-interactions";
 import { PoemInteractionsData } from "@/src/shared/types/interactions.types";
+import { favoritesKeys } from "./use-favorites-list";
 
 export const useOptimisticFavorite = (poemId: number) => {
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
@@ -79,7 +80,7 @@ export const useOptimisticFavorite = (poemId: number) => {
           };
         },
       );
-
+queryClient.invalidateQueries({ queryKey: favoritesKeys.my() });
       const action = context?.action === "add" ? "дададзена" : "выдалена";
       toast.success(`Верш ${action} у избранае`, {
         description:

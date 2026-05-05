@@ -914,7 +914,8 @@ export default function AdminPage() {
                       <h4>Просмотр #{view.id}</h4>
                       <div className={styles.viewMeta}>
                         <span>
-                          📝 Стих: {view.poem?.title ?? `#${view.poemId}`}
+                          📝 Стих:{" "}
+                          {view.poem?.title ?? `#${view.poem?.id ?? "—"}`}
                         </span>
                         <span>
                           🔐 Хэш IP: {view.ipHash?.substring(0, 8) ?? "—"}...

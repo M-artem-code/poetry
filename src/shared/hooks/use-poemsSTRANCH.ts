@@ -39,3 +39,11 @@ export const useSearchPoems = (query: string) => {
     enabled: query.length > 2,
   });
 };
+
+export const usePoemsByCategorySlug = (categorySlug: string) => {
+  return useQuery({
+    queryKey: ["poems", "category", "slug", categorySlug],
+    queryFn: () => poemsApi.getByCategorySlug(categorySlug),
+    enabled: !!categorySlug,
+  });
+};

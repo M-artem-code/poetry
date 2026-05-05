@@ -1,0 +1,95 @@
+.item {
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+  z-index: 1;
+}
+
+.item:active {
+  cursor: grabbing;
+}
+
+.dragging {
+  z-index: 1000;
+  cursor: grabbing;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.placed {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Default variant */
+.default {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  border: 2px solid var(--item-color, #4ECDC4);
+  border-radius: 12px;
+  color: #f8fafc;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.default:hover:not(.dragging):not(.disabled):not(.placed) {
+  border-color: var(--item-color, #4ECDC4);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+
+.default.dragging {
+  border-color: var(--item-color, #4ECDC4);
+  box-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+  transform: scale(1.05);
+}
+
+/* Bubble variant - for poets with avatars */
+.bubble {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+  border: 2px solid var(--item-color, #4ECDC4);
+  border-radius: 50px;
+  color: #f8fafc;
+  min-width: 160px;
+  max-width: 200px;
+}
+
+.bubble:hover:not(.dragging):not(.disabled):not(.placed) {
+  border-color: var(--item-color, #4ECDC4);
+  box-shadow: 0 0 25px rgba(78, 205, 196, 0.4);
+}
+
+.bubble.dragging {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(78, 205, 196, 0.5);
+}
+
+/* Word variant - for fill blanks */
+.word {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  border: 2px solid var(--item-color, #A78BFA);
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.word:hover:not(.dragging):not(.disabled):not(.placed) {
+  border-color: var(--item-color, #A78BFA);
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+}
+
+.word.dragging {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(167, 139, 250, 0.4);
+}

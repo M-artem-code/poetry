@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Heart, MessageCircle, Calendar, Star } from "lucide-react"
-import { DialogHeader } from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { Holiday, Season } from "@/src/shared"
-import { MONTH_NAMES } from "../../season-slider/season-slider-data"
-import styles from "./hero-section.module.css"
+import Image from "next/image";
+import { BookOpen, Calendar, Info, Star } from "lucide-react";
+import { DialogHeader } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Holiday, Season } from "@/src/shared";
+import { MONTH_NAMES } from "../../season-slider/season-slider-data";
+import styles from "./hero-section.module.css";
 
 interface HeroSectionProps {
-  holiday: Holiday
+  holiday: Holiday;
 }
 
 export function HeroSection({ holiday }: HeroSectionProps) {
   return (
     <div className={styles.container}>
       <HeroBackground image={holiday.image} name={holiday.name} />
-      
+
       <div className={styles.content}>
         <Badge className={styles.badge}>
           <Star className={styles.badgeIcon} />
@@ -33,24 +33,17 @@ export function HeroSection({ holiday }: HeroSectionProps) {
         </div>
 
         <DialogHeader className="text-left">
-          <h2 className={styles.title}>
-            {holiday.name}
-          </h2>
-          
+          <h2 className={styles.title}>{holiday.name}</h2>
+
           {holiday.description && (
-            <p className={styles.description}>
-              {holiday.description}
-            </p>
+            <p className={styles.description}>{holiday.description}</p>
           )}
         </DialogHeader>
 
-        <HeroStats 
-          favorites={holiday._count?.favorites ?? 0} 
-          comments={holiday._count?.comments ?? 0} 
-        />
+        <HeroMeta poemsCount={holiday.poems.length} />
       </div>
     </div>
-  )
+  );
 }
 
 function HeroBackground({ image, name }: { image?: string; name: string }) {
@@ -68,30 +61,34 @@ function HeroBackground({ image, name }: { image?: string; name: string }) {
         <div className={styles.gradientRight} />
         <div className={styles.gradientTop} />
       </>
-    )
+    );
   }
 
   return (
     <div className={styles.fallbackBackground}>
       <div className={styles.fallbackPattern}>
         <div className={styles.pulseCircle1} />
-        <div className={styles.pulseCircle2} style={{ animationDelay: '1s' }} />
+        <div className={styles.pulseCircle2} style={{ animationDelay: "1s" }} />
       </div>
     </div>
-  )
+  );
 }
 
-function HeroStats({ favorites, comments }: { favorites: number; comments: number }) {
+function HeroMeta({ poemsCount }: { poemsCount: number }) {
+  const poemsLabel = poemsCount === 0 ? "Няма вершаў" : `${poemsCount} вершаў`;
+
   return (
     <div className={styles.statsContainer}>
       <div className={styles.statItem}>
-        <Heart className={`${styles.statIcon} ${styles.statIconHeart}`} />
-        <span className={styles.statValue}>{favorites}</span>
+        <BookOpen className={`${styles.statIcon} ${styles.statIconBook}`} />
+        <span className={styles.statValue}>{poemsLabel}</span>
       </div>
       <div className={styles.statItem}>
-        <MessageCircle className={`${styles.statIcon} ${styles.statIconMessage}`} />
-        <span className={styles.statValue}>{comments}</span>
+        <Info className={`${styles.statIcon} ${styles.statIconInfo}`} />
+        <span className={styles.statValue}>
+          {poemsCount === 0 ? "Пакуль пусто" : "Глядзі вершы справа"}
+        </span>
       </div>
     </div>
-  )
+  );
 }
