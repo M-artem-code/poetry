@@ -15,10 +15,9 @@ Backend API для поэтического веб-сайта на NestJS с Pri
 ```bash
 # Установить зависимости
 npm install
-
-# Скопировать .env.example в .env и настроить переменные окружения
-cp .env.example .env
 ```
+
+Создай файл `.env` на основе `.env.example`.
 
 ## ⚙️ Настройка .env
 
@@ -28,6 +27,8 @@ JWT_SECRET="your-super-secret-jwt-key"
 PORT=3001
 FRONTEND_URL="http://localhost:3000"
 ```
+
+Email (SMTP) переменные — опциональны для локальной разработки.
 
 ## 🗄️ База данных
 
@@ -141,6 +142,7 @@ poetry-backend/
 API использует JWT токены, которые сохраняются в httpOnly cookies.
 
 Для защищенных endpoints необходимо:
+
 - Cookie `token` с JWT токеном
 - Или header `Authorization: Bearer <token>`
 

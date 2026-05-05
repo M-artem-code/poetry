@@ -1,132 +1,140 @@
-# Poetry - Next.js веб-сайт стихов
+# Poetry
 
-Современный веб-сайт для публикации и чтения стихотворений на Next.js + React + TypeScript.
+Full-stack веб-приложение для чтения и публикации стихов.
 
-## 🎨 Структура проекта (FSD)
+Монорепозиторий:
 
-```
-poetry/
-├── app/                          # Next.js App Router
-│   ├── layout.tsx               # Root layout
-│   ├── page.tsx                 # Главная страница
-│   └── globals.css              # Глобальные стили
-│
-├── components/                   # React компоненты
-│   ├── Header/
-│   │   ├── Header.tsx           # Компонент хедера
-│   │   └── Header.module.css    # Стили хедера
-│   └── Hero/
-│       ├── Hero.tsx             # Компонент hero-секции
-│       └── Hero.module.css      # Стили hero-секции
-│
-├── package.json                 # Зависимости
-├── tsconfig.json                # TypeScript конфиг
-├── next.config.js               # Next.js конфиг
-└── README.md                    # Документация
-```
+- Frontend: Next.js + React + TypeScript
+- Backend: NestJS + Prisma + PostgreSQL
 
-## 🚀 Установка и запуск
+## Возможности
 
-### 1. Установка зависимостей
+- Аутентификация (JWT + cookies)
+- Категории, авторы, стихотворения
+- Комментарии, избранное, лайки
+- Дополнительные сущности (квизы, сезонные слайды)
+
+## Скриншоты
+
+Добавь сюда изображения после первого релиза UI:
+
+- `docs/screenshots/home.png`
+- `docs/screenshots/poem.png`
+- `docs/screenshots/auth.png`
+- `docs/screenshots/profile.png`
+
+## Технологии
+
+- Frontend: Next.js, React, TypeScript, TanStack React Query, Zustand, Zod, React Hook Form
+- Backend: NestJS, Prisma, PostgreSQL, JWT, class-validator
+
+## Быстрый старт (локально)
+
+### Требования
+
+- Node.js 20+ (рекомендуется LTS)
+- npm
+- PostgreSQL 14+
+
+### 1) Установка зависимостей
+
+Frontend:
 
 ```bash
 npm install
 ```
 
-### 2. Запуск в режиме разработки
+Backend:
+
+```bash
+cd poetry-backend
+npm install
+```
+
+### 2) Настройка переменных окружения
+
+Backend:
+
+- Скопируй `./poetry-backend/.env.example` в `./poetry-backend/.env`
+- Укажи реальный `DATABASE_URL`
+
+Frontend:
+
+- Скопируй `./.env.local.example` в `./.env.local`
+
+### 3) Подготовка базы данных
+
+Создай базу данных `poetry` в PostgreSQL, затем:
+
+```bash
+cd poetry-backend
+npm run prisma:generate
+npm run prisma:migrate
+npm run seed
+```
+
+### 4) Запуск в dev-режиме
+
+Backend:
+
+```bash
+cd poetry-backend
+npm run start:dev
+```
+
+Frontend:
 
 ```bash
 npm run dev
 ```
 
-Откройте [http://localhost:3000](http://localhost:3000) в браузере.
+Приложение:
 
-### 3. Сборка для продакшена
+- Frontend: http://localhost:3000
+- Backend: http://localhost:3001
+
+## Структура репозитория
+
+```
+poetry/
+├── app/                         # Next.js App Router
+├── src/                         # Frontend по FSD
+├── components/                  # UI-компоненты
+├── poetry-backend/              # NestJS API + Prisma
+├── docs/                        # Документация и скриншоты
+└── ARCHITECTURE.md              # Архитектурные заметки
+```
+
+## Команды
+
+Frontend (корень репо):
 
 ```bash
+npm run dev
 npm run build
-npm start
+npm run start
+npm run lint
 ```
 
-## ✨ Технологии
-
-- ⚡ **Next.js 14** - React фреймворк
-- ⚛️ **React 18** - UI библиотека
-- 📘 **TypeScript** - Типизация
-- 🎨 **CSS Modules** - Модульные стили
-- 🔥 **App Router** - Новый роутинг Next.js
-
-## 📦 Компоненты
-
-### Header
-- Sticky навигация
-- Responsive меню
-- Эффект при скролле
-- Next.js Link для навигации
-
-### Hero
-- Главная секция
-- Категории стихов
-- CTA кнопка
-- Анимации и градиенты
-
-## 🎯 Особенности
-
-- 🚀 Server-Side Rendering (SSR)
-- ⚡ Быстрая навигация с Next.js
-- 📱 Полностью адаптивный дизайн
-- 🎨 CSS Modules для изоляции стилей
-- ♿ Семантичная разметка
-- 🔍 SEO оптимизация
-- 💅 Плавные анимации
-
-## 🎨 Цветовая схема
-
-```css
---primary-color: #2c2c2c
---secondary-color: #6b6b6b
---accent-color: #8b8b8b
---light-bg: #f5f5f5
---white: #ffffff
-```
-
-## 📝 Разделы сайта
-
-- **Главная** (`/`) - Приветственная страница
-- **Направления** (`#directions`) - Жанры и стили
-- **Стихи** (`/poems`) - Каталог стихотворений
-- **О нас** (`/about`) - Информация о проекте
-- **Авторы** (`/authors`) - Список поэтов
-- **Контакты** (`/contact`) - Связь
-- **Войти** (`/login`) - Авторизация
-
-## 🛠️ Дальнейшее развитие
-
-- [ ] Создать страницы `/poems`, `/about`, `/authors`
-- [ ] Добавить API роуты
-- [ ] Интеграция с базой данных
-- [ ] Система авторизации (NextAuth.js)
-- [ ] Профили авторов
-- [ ] Поиск и фильтрация стихов
-- [ ] Избранное
-- [ ] Комментарии и рейтинги
-- [ ] Admin панель
-- [ ] Markdown редактор для стихов
-
-## 📚 Команды
+Backend (`poetry-backend/`):
 
 ```bash
-npm run dev      # Запуск dev сервера
-npm run build    # Сборка проекта
-npm start        # Запуск продакшен сервера
-npm run lint     # Проверка линтером
+npm run start:dev
+npm run build
+npm run start:prod
+npm run lint
+npm run prisma:migrate
+npm run prisma:studio
+npm run seed
 ```
 
-## 🌟 Best Practices
+## Документация
 
-- ✅ TypeScript для типобезопасности
-- ✅ CSS Modules для изоляции стилей
-- ✅ 'use client' только где нужна интерактивность
-- ✅ Next.js Image для оптимизации изображений
-- ✅ Metadata API для SEO
-- ✅ App Router для современного роутинга
+- `ARCHITECTURE.md`
+- `docs/ENV.md`
+- `docs/API.md`
+- `docs/DB.md`
+
+## Контрибьютинг
+
+См. `CONTRIBUTING.md`.
