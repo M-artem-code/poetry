@@ -16,9 +16,9 @@ Full-stack веб-приложение для чтения и публикаци
 
 ## Скриншоты
 
-- `docs/screenshots/home.png`
-- `docs/screenshots/poem.png`
-- `docs/screenshots/auth.png`
+![POETRY screenshot](docs/screenshots/home.png)
+![POETRY screenshot](docs/screenshots/poem.png)
+![POETRY screenshot](docs/screenshots/auth.png)
 
 ## Технологии
 
