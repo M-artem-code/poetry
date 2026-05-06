@@ -1,6 +1,8 @@
 import { apiClient } from "./client";
 import type { Comment, CreateCommentDto, UpdateCommentDto } from "../types";
 
+export type { CreateCommentDto, UpdateCommentDto };
+
 export const commentsApi = {
   // Получить комментарии к стиху
   getByPoem: async (poemId: number): Promise<Comment[]> => {
@@ -35,5 +37,4 @@ export const commentsApi = {
     );
     return response.data.count; // ← достаём число из объекта
   },
-
 };

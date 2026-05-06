@@ -1,13 +1,17 @@
-'use client';
+"use client";
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { commentsApi, type CreateCommentDto, type UpdateCommentDto } from '@/src/shared/api/comments.api';
-import type { Comment } from '@/src/shared/types';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  commentsApi,
+  type CreateCommentDto,
+  type UpdateCommentDto,
+} from "@/src/shared/api/comments.api";
+import type { Comment } from "@/src/shared/types";
 
 // Получить комментарии к стиху
 export const useComments = (poemId: number) => {
   return useQuery<Comment[]>({
-    queryKey: ['comments', poemId],
+    queryKey: ["comments", poemId],
     queryFn: () => commentsApi.getByPoem(poemId),
     enabled: !!poemId,
   });
@@ -18,10 +22,16 @@ export const useCreateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateCommentDto) => commentsApi.create(data),
+    mutationFn: ({
+      poemId,
+      data,
+    }: {
+      poemId: number;
+      data: CreateCommentDto;
+    }) => commentsApi.create(poemId, data),
     onSuccess: (_, { poemId }) => {
-      queryClient.invalidateQueries({ queryKey: ['comments', poemId] });
-      queryClient.invalidateQueries({ queryKey: ['poem', poemId] });
+      queryClient.invalidateQueries({ queryKey: ["comments", poemId] });
+      queryClient.invalidateQueries({ queryKey: ["poem", poemId] });
     },
   });
 };
@@ -34,7 +44,7 @@ export const useUpdateComment = (poemId: number) => {
     mutationFn: ({ id, data }: { id: number; data: UpdateCommentDto }) =>
       commentsApi.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', poemId] });
+      queryClient.invalidateQueries({ queryKey: ["comments", poemId] });
     },
   });
 };
@@ -46,8 +56,8 @@ export const useDeleteComment = (poemId: number) => {
   return useMutation({
     mutationFn: (id: number) => commentsApi.delete(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments', poemId] });
-      queryClient.invalidateQueries({ queryKey: ['poem', poemId] });
+      queryClient.invalidateQueries({ queryKey: ["comments", poemId] });
+      queryClient.invalidateQueries({ queryKey: ["poem", poemId] });
     },
   });
 };

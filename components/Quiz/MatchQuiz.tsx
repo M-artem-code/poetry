@@ -255,7 +255,7 @@ export default function MatchQuiz({
             <CheckButton
               onClick={handleCheck}
               disabled={!allPlaced}
-              color={color}
+              color={color ?? undefined}
             >
               {allPlaced
                 ? "Праверыць"

@@ -13,7 +13,7 @@ import type {
   UploadVideoResponse,
   AdminComment,
   AdminCommentsResponse,
-  UpdateCommentDto,
+  AdminUpdateCommentDto,
   AdminLike,
   AdminLikesResponse,
   LikesStatistics,
@@ -139,7 +139,7 @@ export const adminApi = {
 
   updateComment: async (
     id: number,
-    data: UpdateCommentDto,
+    data: AdminUpdateCommentDto,
   ): Promise<AdminComment> => {
     const response = await apiClient.put<AdminComment>(
       `/admin/comments/${id}`,

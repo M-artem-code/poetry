@@ -1,4 +1,4 @@
-import { Collection } from "@/poetry-backend/generated/prisma";
+import type { Poem } from "./poem.types";
 
 export interface Category {
   id: number;
@@ -11,4 +11,13 @@ export interface Category {
   _count?: {
     collections: number;
   };
+}
+
+export interface Collection {
+  id: number;
+  title: string;
+  slug: string;
+  description?: string | null;
+  image?: string | null;
+  poems?: Poem[];
 }

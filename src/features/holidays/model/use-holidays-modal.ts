@@ -29,6 +29,7 @@ export function useHolidayModal(
   holiday: Holiday | null,
 ): UseHolidayModalReturn {
   const [expandedPoem, setExpandedPoem] = useState<number | null>(null);
+  const [likedPoems, setLikedPoems] = useState<Set<number>>(new Set());
   const [savedPoems, setSavedPoems] = useState<Set<number>>(new Set());
   const [activeTab, setActiveTab] = useState("poems");
 
@@ -41,6 +42,15 @@ export function useHolidayModal(
     setExpandedPoem((prev) => (prev === poemId ? null : poemId));
   }, []);
 
+  const toggleLike = useCallback((poemId: number) => {
+    setLikedPoems((prev) => {
+      const next = new Set(prev);
+      if (next.has(poemId)) next.delete(poemId);
+      else next.add(poemId);
+      return next;
+    });
+  }, []);
+
   const toggleSave = useCallback((poemId: number) => {
     setSavedPoems((prev) => {
       const next = new Set(prev);
@@ -50,9 +60,20 @@ export function useHolidayModal(
     });
   }, []);
 
+  const isPoemLiked = useCallback(
+    (poemId: number) => likedPoems.has(poemId),
+    [likedPoems],
+  );
+
   const isPoemSaved = useCallback(
     (poemId: number) => savedPoems.has(poemId),
     [savedPoems],
+  );
+
+  const getPoemLikes = useCallback(
+    (poemId: number, baseLikes: number) =>
+      baseLikes + (likedPoems.has(poemId) ? 1 : 0),
+    [likedPoems],
   );
 
   const seasonStyle = useMemo(() => {
@@ -67,8 +88,11 @@ export function useHolidayModal(
     seasonStyle,
     setActiveTab,
     toggleExpandPoem,
+    toggleLike,
     toggleSave,
+    isPoemLiked,
     isPoemSaved,
+    getPoemLikes,
     months,
   };
 }

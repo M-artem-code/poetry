@@ -15,7 +15,7 @@ interface HeroSectionProps {
 export function HeroSection({ holiday }: HeroSectionProps) {
   return (
     <div className={styles.container}>
-      <HeroBackground image={holiday.image} name={holiday.name} />
+      <HeroBackground image={holiday.image ?? undefined} name={holiday.name} />
 
       <div className={styles.content}>
         <Badge className={styles.badge}>

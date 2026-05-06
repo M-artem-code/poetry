@@ -301,7 +301,7 @@ export default function TimelineQuiz({
               key={item.id}
               id={item.id}
               name={item.content}
-              color={color}
+              color={color ?? undefined}
               isPlaced={item.id in placements}
               disabled={isChecked}
             />
@@ -324,7 +324,7 @@ export default function TimelineQuiz({
             <CheckButton
               onClick={handleCheck}
               disabled={!allPlaced}
-              color={color}
+              color={color ?? undefined}
             >
               {allPlaced
                 ? "Праверыць"

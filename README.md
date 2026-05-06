@@ -16,12 +16,9 @@ Full-stack веб-приложение для чтения и публикаци
 
 ## Скриншоты
 
-Добавь сюда изображения после первого релиза UI:
-
 - `docs/screenshots/home.png`
 - `docs/screenshots/poem.png`
 - `docs/screenshots/auth.png`
-- `docs/screenshots/profile.png`
 
 ## Технологии
 
@@ -104,6 +101,102 @@ poetry/
 ├── docs/                        # Документация и скриншоты
 └── ARCHITECTURE.md              # Архитектурные заметки
 ```
+
+## Структура проекта (FSD)
+
+Проект на фронтенде организован по принципам **Feature-Sliced Design** (FSD): код группируется не по типам файлов, а по смыслу и зоне ответственности.
+
+### Слои и ответственность
+
+- **`app/`**
+  - Роутинг и композиция страниц (Next.js App Router)
+  - Подключение провайдеров (`providers.tsx`), глобальные стили (`globals.css`)
+- **`src/shared/`**
+  - Переиспользуемые куски без привязки к конкретной бизнес-сущности
+  - API клиент, базовые хуки, утилиты, типы, UI-kit
+- **`src/entities/`**
+  - Бизнес-сущности и их состояние (например `user`)
+  - Нельзя тянуть UI/логику напрямую из `features` (наоборот можно)
+- **`src/features/`**
+  - Фичи (пользовательские сценарии): авторизация, комментарии, избранное, квизы и т.д.
+  - Внутри: `model/` (логика), `ui/` (компоненты), `lib/` (утилиты фичи)
+
+### Текущая структура (как есть в репозитории)
+
+```text
+app/
+  layout.tsx
+  providers.tsx
+  page.tsx
+  globals.css
+  about/
+  admin/
+  auth/
+  author/
+  collection/
+  faq/
+  favorites/
+  filters/
+  holidays/
+  poem/
+  quizzes/
+  settings/
+
+src/
+  app/
+  entities/
+    user/
+  features/
+    auth/
+    authors/
+    categories/
+    comments/
+    favorites/
+    filters/
+    holidays/
+    poems/
+    profile/
+    quiz/
+    season-calendar/
+    season-slider/
+  shared/
+    api/
+    config/
+    hooks/
+    lib/
+    services/
+    types/
+    ui/
+    utils/
+```
+
+### Публичные API модулей
+
+Чтобы импорты были стабильными и “чистыми”, каждый модуль экспортирует наружу только то, что является его публичным API:
+
+- `src/shared/index.ts`
+- `src/entities/user/index.ts`
+- `src/features/<feature>/index.ts`
+
+Рекомендуемый стиль импорта:
+
+- `import { apiClient } from '@/shared/api'`
+- `import { useUserStore } from '@/entities/user'`
+- `import { SignInForm } from '@/features/auth'`
+
+### Конвенции внутри feature
+
+Рекомендуемая структура внутри `src/features/<name>/`:
+
+```text
+features/<name>/
+  model/     # бизнес-логика, хуки, состояние
+  ui/        # компоненты
+  lib/       # утилиты фичи
+  index.ts   # публичный API
+```
+
+Если в фиче много частей, допускаются вложенные подпапки (как в `auth`: `sign-in/`, `sign-up/` и т.д.).
 
 ## Команды
 

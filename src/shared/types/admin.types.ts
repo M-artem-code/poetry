@@ -82,7 +82,7 @@ export interface AdminCommentsResponse {
   limit: number;
 }
 
-export interface UpdateCommentDto {
+export interface AdminUpdateCommentDto {
   text: string;
 }
 
