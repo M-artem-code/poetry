@@ -1,5 +1,10 @@
-import "dotenv/config"
-import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
+import "dotenv/config";
+import {
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
@@ -12,17 +17,19 @@ export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
+  private readonly logger = new Logger(PrismaService.name);
+
   constructor() {
     super({ adapter });
   }
 
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     await this.$connect();
-    console.log("✅ Prisma connected to database");
+    this.logger.log("✅ Prisma connected to database");
   }
 
-  async onModuleDestroy() {
+  async onModuleDestroy(): Promise<void> {
     await this.$disconnect();
-    console.log("❌ Prisma disconnected from database");
+    this.logger.log("❌ Prisma disconnected from database");
   }
 }
