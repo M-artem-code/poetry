@@ -519,7 +519,7 @@ export class AdminService {
         orderBy: { createdAt: "desc" },
         skip,
         take: limit,
-    }),
+      }),
       this.prisma.view.count({ where }),
     ]);
 
