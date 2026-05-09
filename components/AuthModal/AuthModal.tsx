@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SignInForm, SignUpForm } from "@/src/features/auth";
 import styles from "./AuthModal.module.css";
 
@@ -12,6 +12,7 @@ interface AuthModalProps {
 
 const AuthModal = ({ isOpen, onClose, onLogin }: AuthModalProps) => {
   const [isLogin, setIsLogin] = useState(true);
+  const shouldCloseOnBackdropPointerUpRef = useRef(false);
 
   if (!isOpen) return null;
 
@@ -28,8 +29,21 @@ const AuthModal = ({ isOpen, onClose, onLogin }: AuthModalProps) => {
   return (
     <div
       className={styles.backdrop}
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+      onPointerDown={(e) => {
+        shouldCloseOnBackdropPointerUpRef.current =
+          e.target === e.currentTarget;
+      }}
+      onPointerUp={(e) => {
+        if (
+          shouldCloseOnBackdropPointerUpRef.current &&
+          e.target === e.currentTarget
+        ) {
+          onClose();
+        }
+        shouldCloseOnBackdropPointerUpRef.current = false;
+      }}
+      onPointerCancel={() => {
+        shouldCloseOnBackdropPointerUpRef.current = false;
       }}
     >
       <div className={styles.modal}>
