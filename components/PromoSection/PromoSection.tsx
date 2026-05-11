@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+
 import { BookOpen, Sparkles, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+
 import styles from "./PromoSection.module.css";
 
 const PromoSection = () => {
@@ -12,8 +14,11 @@ const PromoSection = () => {
       <div className="container">
         <div className={styles.card}>
           <span className={styles.dot} data-position="top-left" />
+
           <span className={styles.dot} data-position="top-right" />
+
           <span className={styles.dot} data-position="bottom-left" />
+
           <span className={styles.dot} data-position="bottom-right" />
 
           <div className={styles.bgOrnament} aria-hidden="true" />
@@ -48,10 +53,12 @@ const PromoSection = () => {
                   <BookOpen className={styles.featureIcon} />
                   Калекцыі і падборкі па тэматыках
                 </li>
+
                 <li className={styles.featureItem}>
                   <Users className={styles.featureIcon} />
                   Старонкі аўтараў з біяграфіяй і творамі
                 </li>
+
                 <li className={styles.featureItem}>
                   <Sparkles className={styles.featureIcon} />
                   Віктарыны, святы і фаварыты — каб было цікава вяртацца
@@ -63,27 +70,36 @@ const PromoSection = () => {
               <div className={styles.statsGrid}>
                 <div className={styles.statCard}>
                   <div className={styles.statValue}>50+</div>
+
                   <div className={styles.statLabel}>вершаў у калекцыі</div>
                 </div>
+
                 <div className={styles.statCard}>
                   <div className={styles.statValue}>BE</div>
+
                   <div className={styles.statLabel}>родная мова і класіка</div>
                 </div>
+
                 <div className={styles.statCard}>
                   <div className={styles.statValue}>24/7</div>
+
                   <div className={styles.statLabel}>чытаць з любога месца</div>
                 </div>
+
                 <div className={styles.statCard}>
                   <div className={styles.statValue}>♥</div>
+
                   <div className={styles.statLabel}>захоўвай у фаварыты</div>
                 </div>
               </div>
 
               <div className={styles.quoteCard}>
                 <div className={styles.quoteMark}>“</div>
+
                 <p className={styles.quoteText}>
                   Паэзія — гэта калі словы становяцца домам для пачуццяў.
                 </p>
+
                 <div className={styles.quoteFooter}>
                   Адкрый для сябе беларускую спадчыну
                 </div>

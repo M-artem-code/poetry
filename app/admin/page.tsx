@@ -76,6 +76,11 @@ export default function AdminPage() {
     null,
   );
 
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterAuthor, setFilterAuthor] = useState("");
+
   const isAdmin = user?.role === "ADMIN" || user?.role === "SUPER_ADMIN";
   const isSuperAdmin = user?.role === "SUPER_ADMIN";
 
@@ -481,7 +486,42 @@ export default function AdminPage() {
         {activeTab === "poems" && (
           <div className={styles.poemsSection}>
             <div className={styles.sectionHeader}>
-              <h2>Управление стихами</h2>
+              <div className={styles.headerLeft}>
+                <h2>Управление стихами</h2>
+                <div className={styles.searchAndFilter}>
+                  <input
+                    type="text"
+                    placeholder="Поиск по названию..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={styles.searchInput}
+                  />
+                  <select
+                    value={filterAuthor}
+                    onChange={(e) => setFilterAuthor(e.target.value)}
+                    className={styles.filterSelect}
+                  >
+                    <option value="">Все авторы</option>
+                    {authors.map((author) => (
+                      <option key={author.id} value={author.id.toString()}>
+                        {author.name}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    className={styles.filterSelect}
+                  >
+                    <option value="">Все категории</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.id.toString()}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
               <button
                 className={styles.addBtn}
                 onClick={() => {
@@ -647,29 +687,85 @@ export default function AdminPage() {
             )}
 
             <div className={styles.poemsList}>
-              {poems.map((poem) => (
-                <div key={poem.id} className={styles.poemItem}>
-                  <div className={styles.poemInfo}>
-                    <h4>{poem.title}</h4>
-                    <p>
-                      {poem.author?.name || "Неизвестный автор"}{" "}
-                      {poem.year && `(${poem.year})`}
-                    </p>
-                    <span className={styles.poemCategory}>
-                      {poem.categories[0]?.name || "Без категории"}
-                    </span>
-                    {poem.videoUrl && (
-                      <span className={styles.hasVideo}>🎬 Видео</span>
-                    )}
+              {poems
+                .filter((poem) => {
+                  const matchesSearch =
+                    poem.title
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase()) ||
+                    poem.content
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase());
+                  const matchesAuthor =
+                    !filterAuthor || poem.authorId.toString() === filterAuthor;
+                  const matchesCategory =
+                    !filterCategory ||
+                    poem.categories[0]?.id.toString() === filterCategory;
+                  return matchesSearch && matchesAuthor && matchesCategory;
+                })
+                .map((poem) => (
+                  <div key={poem.id} className={styles.poemItem}>
+                    <div className={styles.poemInfo}>
+                      <h4>{poem.title}</h4>
+                      <p>
+                        {poem.author?.name || "Неизвестный автор"}{" "}
+                        {poem.year && `(${poem.year})`}
+                      </p>
+                      <div className={styles.poemMeta}>
+                        <span className={styles.poemCategory}>
+                          {poem.categories[0]?.name || "Без категории"}
+                        </span>
+                        {poem.videoUrl && (
+                          <span className={styles.hasVideo}>🎬 Видео</span>
+                        )}
+                        <span className={styles.poemDate}>
+                          📅 {new Date(poem.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.poemActions}>
+                      <button
+                        onClick={() => handleEditPoem(poem)}
+                        className={styles.editBtn}
+                        title="Редактировать"
+                      >
+                        ✏️
+                      </button>
+                      <button
+                        onClick={() => handleDeletePoem(poem.id)}
+                        className={styles.deleteBtn}
+                        title="Удалить"
+                      >
+                        🗑️
+                      </button>
+                    </div>
                   </div>
-                  <div className={styles.poemActions}>
-                    <button onClick={() => handleEditPoem(poem)}>✏️</button>
-                    <button onClick={() => handleDeletePoem(poem.id)}>
-                      🗑️
-                    </button>
-                  </div>
+                ))}
+              {poems.filter((poem) => {
+                const matchesSearch =
+                  poem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  poem.content.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesAuthor =
+                  !filterAuthor || poem.authorId.toString() === filterAuthor;
+                const matchesCategory =
+                  !filterCategory ||
+                  poem.categories[0]?.id.toString() === filterCategory;
+                return matchesSearch && matchesAuthor && matchesCategory;
+              }).length === 0 && (
+                <div className={styles.emptyState}>
+                  <p>Стихи не найдены</p>
+                  <button
+                    onClick={() => {
+                      setSearchTerm("");
+                      setFilterAuthor("");
+                      setFilterCategory("");
+                    }}
+                    className={styles.clearFiltersBtn}
+                  >
+                    Очистить фильтры
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         )}
@@ -677,7 +773,23 @@ export default function AdminPage() {
         {/* Users Management (Super Admin only) */}
         {activeTab === "users" && users.length > 0 && (
           <div className={styles.usersSection}>
-            <h2>Управление пользователями</h2>
+            <div className={styles.sectionHeader}>
+              <h2>Управление пользователями</h2>
+              <div className={styles.userStats}>
+                <span className={styles.statBadge}>
+                  👑 Админы:{" "}
+                  {
+                    users.filter(
+                      (u) => u.role === "ADMIN" || u.role === "SUPER_ADMIN",
+                    ).length
+                  }
+                </span>
+                <span className={styles.statBadge}>
+                  👥 Пользователи:{" "}
+                  {users.filter((u) => u.role === "USER").length}
+                </span>
+              </div>
+            </div>
             <div className={styles.usersList}>
               {users.map((u) => (
                 <div key={u.id} className={styles.userItem}>
@@ -728,16 +840,20 @@ export default function AdminPage() {
         {/* Комментарии */}
         {activeTab === "comments" && (
           <div className={styles.commentsSection}>
-            <h2>Управление комментариями</h2>
             <div className={styles.sectionHeader}>
-              <p>Всего комментариев: {commentsTotal}</p>
-              <button
-                className={styles.addBtn}
-                onClick={() => loadComments(commentsPage)}
-                disabled={commentsLoading}
-              >
-                {commentsLoading ? "Загрузка..." : "Обновить"}
-              </button>
+              <div className={styles.headerLeft}>
+                <h2>Управление комментариями</h2>
+                <p>Всего комментариев: {commentsTotal}</p>
+              </div>
+              <div className={styles.headerActions}>
+                <button
+                  className={styles.addBtn}
+                  onClick={() => loadComments(commentsPage)}
+                  disabled={commentsLoading}
+                >
+                  {commentsLoading ? "Загрузка..." : "Обновить"}
+                </button>
+              </div>
             </div>
             {comments.length === 0 ? (
               <p>Нет комментариев</p>
@@ -799,19 +915,26 @@ export default function AdminPage() {
         {/* Лайки */}
         {activeTab === "likes" && (
           <div className={styles.likesSection}>
-            <h2>Управление лайками</h2>
             <div className={styles.sectionHeader}>
-              <p>Всего лайков: {likesTotal}</p>
-              <button
-                className={styles.addBtn}
-                onClick={() => loadLikes(likesPage)}
-                disabled={likesLoading}
-              >
-                {likesLoading ? "Загрузка..." : "Обновить"}
-              </button>
-              <button className={styles.statsBtn} onClick={loadLikesStatistics}>
-                📊 Статистика
-              </button>
+              <div className={styles.headerLeft}>
+                <h2>Управление лайками</h2>
+                <p>Всего лайков: {likesTotal}</p>
+              </div>
+              <div className={styles.headerActions}>
+                <button
+                  className={styles.addBtn}
+                  onClick={() => loadLikes(likesPage)}
+                  disabled={likesLoading}
+                >
+                  {likesLoading ? "Загрузка..." : "Обновить"}
+                </button>
+                <button
+                  className={styles.statsBtn}
+                  onClick={loadLikesStatistics}
+                >
+                  📊 Статистика
+                </button>
+              </div>
             </div>
             {likes.length === 0 ? (
               <p>Нет лайков</p>
@@ -883,26 +1006,34 @@ export default function AdminPage() {
         {/* Просмотры */}
         {activeTab === "views" && (
           <div className={styles.viewsSection}>
-            <h2>Управление просмотрами</h2>
             <div className={styles.sectionHeader}>
-              <p>Всего просмотров: {viewsTotal}</p>
-              <button
-                className={styles.addBtn}
-                onClick={() => loadViews(viewsPage)}
-                disabled={viewsLoading}
-              >
-                {viewsLoading ? "Загрузка..." : "Обновить"}
-              </button>
-              <button className={styles.statsBtn} onClick={loadViewsAnalytics}>
-                📊 Аналитика
-              </button>
-              <button
-                className={styles.deleteBtn}
-                onClick={handleResetAllViews}
-                disabled={viewsLoading}
-              >
-                🗑️ Сбросить все
-              </button>
+              <div className={styles.headerLeft}>
+                <h2>Управление просмотрами</h2>
+                <p>Всего просмотров: {viewsTotal}</p>
+              </div>
+              <div className={styles.headerActions}>
+                <button
+                  className={styles.addBtn}
+                  onClick={() => loadViews(viewsPage)}
+                  disabled={viewsLoading}
+                >
+                  {viewsLoading ? "Загрузка..." : "Обновить"}
+                </button>
+                <button
+                  className={styles.statsBtn}
+                  onClick={loadViewsAnalytics}
+                >
+                  📊 Аналитика
+                </button>
+                <button
+                  className={styles.dangerBtn}
+                  onClick={handleResetAllViews}
+                  disabled={viewsLoading}
+                  title="Сбросить все просмотры (необратимо)"
+                >
+                  🗑️ Сбросить все
+                </button>
+              </div>
             </div>
             {views.length === 0 ? (
               <p>Нет просмотров</p>

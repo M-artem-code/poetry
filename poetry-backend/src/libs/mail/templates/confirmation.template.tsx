@@ -25,7 +25,8 @@ export function ConfirmationTemplate({
 
   return (
     <Html>
-      <Preview>Пацвердзіце пошту, каб завяршыць рэгістрацыю ў Poetry</Preview>
+      <Preview>Пацвердзіце пошту, каб завяршыць рэгістрацыю ў Poetry</Preview>{" "}
+      {/* Confirm email to complete registration in Poetry */}
       <Body style={main}>
         <Container style={container}>
           <Section style={header}>
