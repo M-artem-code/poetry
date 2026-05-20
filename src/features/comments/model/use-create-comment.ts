@@ -24,20 +24,29 @@ export const useCreateComment = () => {
         interactionKeys.data(poemId),
       );
 
-      queryClient.setQueryData<PoemInteractionsData>(
-        interactionKeys.data(poemId),
-        (old) => {
-          if (!old) return old;
-          return { ...old, commentsCount: old.commentsCount + 1 };
-        },
-      );
+      if (previousData) {
+        queryClient.setQueryData<PoemInteractionsData>(
+          interactionKeys.data(poemId),
+          {
+            ...previousData,
+            commentsCount: previousData.commentsCount + 1,
+          },
+        );
+      }
 
       return { previousData, poemId };
     },
 
-    onSuccess: (_, { poemId }) => {
+    onSuccess: async (_, { poemId }, context) => {
       queryClient.invalidateQueries({ queryKey: ["comments", poemId] });
-      queryClient.invalidateQueries({ queryKey: ["comments-count", poemId] });
+
+      // Если interactions ещё не были в кэше — onMutate не мог сделать +1, подтягиваем с сервера
+      if (!context?.previousData) {
+        await queryClient.refetchQueries({
+          queryKey: interactionKeys.data(poemId),
+          exact: true,
+        });
+      }
     },
 
     onError: (error: any, _variables, context) => {
@@ -46,6 +55,11 @@ export const useCreateComment = () => {
           interactionKeys.data(context.poemId),
           context.previousData,
         );
+      } else if (context?.poemId) {
+        queryClient.invalidateQueries({
+          queryKey: interactionKeys.data(context.poemId),
+          exact: true,
+        });
       }
       if (error?.response?.status === 401) {
         toastMessageHandler({
